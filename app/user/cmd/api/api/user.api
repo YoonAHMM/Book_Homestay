@@ -1,0 +1,84 @@
+syntax = "v1"
+
+type User {
+	Id       int64  `json:"id"`
+	Mobile   string `json:"mobile"` //电话
+	Nickname string `json:"nickname"`
+	Sex      int64  `json:"sex"`
+	Avatar   string `json:"avatar"` //头像
+	Info     string `json:"info"`
+}
+
+type (
+	RegisterReq {
+		Mobile   string `json:"mobile"`
+		Password string `json:"password"`
+	}
+	RegisterResp {
+		AccessToken  string `json:"accessToken"`
+		AccessExpire int64  `json:"accessExpire"` //jwt过期时间
+		RefreshAfter int64  `json:"refreshAfter"` //刷新的时间间隔
+	}
+)
+
+type (
+	LoginReq {
+		Mobile   string `json:"mobile"`
+		Password string `json:"password"`
+	}
+	LoginResp {
+		AccessToken  string `json:"accessToken"`
+		AccessExpire int64  `json:"accessExpire"`
+		RefreshAfter int64  `json:"refreshAfter"`
+	}
+)
+
+type (
+	UserInfoReq  {}
+	UserInfoResp {
+		UserInfo User `json:"userInfo"`
+	}
+)
+
+type (
+	WXMiniAuthReq {
+		Code          string `json:"code"` //登录凭证（code）
+		IV            string `json:"iv"` //初始向量，为16字节base64字符串
+		EncryptedData string `json:"encryptedData"` //加密后的密文，使用base64编码
+	}
+	WXMiniAuthResp {
+		AccessToken  string `json:"accessToken"`
+		AccessExpire int64  `json:"accessExpire"`
+		RefreshAfter int64  `json:"refreshAfter"`
+	}
+)
+
+@server (
+	prefix: /v1
+	group:  user
+)
+service user {
+	@doc "register"
+	@handler register
+	post /user/register (RegisterReq) returns (RegisterResp)
+
+	@doc "login"
+	@handler login
+	post /user/login (LoginReq) returns (LoginResp)
+}
+
+@server (
+	prefix: /v1
+	group:  user
+	jwt:    JwtAuth
+)
+service user {
+	@doc "get user info"
+	@handler detail
+	post /user/detail (UserInfoReq) returns (UserInfoResp)
+
+	@doc "wechat mini auth"
+	@handler wxMiniAuth
+	post /user/wxMiniAuth (WXMiniAuthReq) returns (WXMiniAuthResp)
+}
+

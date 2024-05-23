@@ -1,0 +1,36 @@
+Name: user.rpc
+ListenOn: 0.0.0.0:2001
+
+
+#jwtAuth
+JwtAuth:
+  AccessSecret:
+  AccessExpire:
+
+#Monitoring
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4009
+  Path: /metrics
+
+Telemetry:
+  Name: user-rpc
+  Endpoint: http://jaeger:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger
+
+Log:
+  ServiceName: user-rpc
+  Level: error
+
+Redis:
+  Host: redis:6379
+  Type: node
+  Pass: 
+  Key: user-rpc
+
+DB:
+  DataSource: 
+Cache:
+  - Host: redis:6379
+    Pass: 
