@@ -20,7 +20,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// model
 type Homestay struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -172,7 +171,188 @@ func (x *Homestay) GetMarketHomestayPrice() int64 {
 	return 0
 }
 
-// req 、resp
+type HomestayBusinessBoss struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id       int64  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Userid   int64  `protobuf:"varint,2,opt,name=userid,proto3" json:"userid,omitempty"`
+	Nickname string `protobuf:"bytes,3,opt,name=Nickname,proto3" json:"Nickname,omitempty"`
+	Avatar   string `protobuf:"bytes,4,opt,name=Avatar,proto3" json:"Avatar,omitempty"`
+	Info     string `protobuf:"bytes,5,opt,name=Info,proto3" json:"Info,omitempty"`
+	Rank     int64  `protobuf:"varint,6,opt,name=Rank,proto3" json:"Rank,omitempty"`
+}
+
+func (x *HomestayBusinessBoss) Reset() {
+	*x = HomestayBusinessBoss{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *HomestayBusinessBoss) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HomestayBusinessBoss) ProtoMessage() {}
+
+func (x *HomestayBusinessBoss) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HomestayBusinessBoss.ProtoReflect.Descriptor instead.
+func (*HomestayBusinessBoss) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *HomestayBusinessBoss) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *HomestayBusinessBoss) GetUserid() int64 {
+	if x != nil {
+		return x.Userid
+	}
+	return 0
+}
+
+func (x *HomestayBusinessBoss) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
+func (x *HomestayBusinessBoss) GetAvatar() string {
+	if x != nil {
+		return x.Avatar
+	}
+	return ""
+}
+
+func (x *HomestayBusinessBoss) GetInfo() string {
+	if x != nil {
+		return x.Info
+	}
+	return ""
+}
+
+func (x *HomestayBusinessBoss) GetRank() int64 {
+	if x != nil {
+		return x.Rank
+	}
+	return 0
+}
+
+type HomestayComment struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id         int64  `protobuf:"varint,1,opt,name=Id,proto3" json:"Id,omitempty"`
+	HomestayId int64  `protobuf:"varint,2,opt,name=HomestayId,proto3" json:"HomestayId,omitempty"`
+	Content    string `protobuf:"bytes,3,opt,name=Content,proto3" json:"Content,omitempty"`
+	Star       int64  `protobuf:"varint,4,opt,name=Star,proto3" json:"Star,omitempty"`
+	UserId     string `protobuf:"bytes,5,opt,name=UserId,proto3" json:"UserId,omitempty"`
+	Nickname   string `protobuf:"bytes,6,opt,name=Nickname,proto3" json:"Nickname,omitempty"`
+	Avatar     string `protobuf:"bytes,7,opt,name=Avatar,proto3" json:"Avatar,omitempty"`
+}
+
+func (x *HomestayComment) Reset() {
+	*x = HomestayComment{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *HomestayComment) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HomestayComment) ProtoMessage() {}
+
+func (x *HomestayComment) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HomestayComment.ProtoReflect.Descriptor instead.
+func (*HomestayComment) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *HomestayComment) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *HomestayComment) GetHomestayId() int64 {
+	if x != nil {
+		return x.HomestayId
+	}
+	return 0
+}
+
+func (x *HomestayComment) GetContent() string {
+	if x != nil {
+		return x.Content
+	}
+	return ""
+}
+
+func (x *HomestayComment) GetStar() int64 {
+	if x != nil {
+		return x.Star
+	}
+	return 0
+}
+
+func (x *HomestayComment) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+func (x *HomestayComment) GetNickname() string {
+	if x != nil {
+		return x.Nickname
+	}
+	return ""
+}
+
+func (x *HomestayComment) GetAvatar() string {
+	if x != nil {
+		return x.Avatar
+	}
+	return ""
+}
+
 type HomestayDetailReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -184,7 +364,7 @@ type HomestayDetailReq struct {
 func (x *HomestayDetailReq) Reset() {
 	*x = HomestayDetailReq{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_travel_proto_msgTypes[1]
+		mi := &file_travel_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -197,7 +377,7 @@ func (x *HomestayDetailReq) String() string {
 func (*HomestayDetailReq) ProtoMessage() {}
 
 func (x *HomestayDetailReq) ProtoReflect() protoreflect.Message {
-	mi := &file_travel_proto_msgTypes[1]
+	mi := &file_travel_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -210,7 +390,7 @@ func (x *HomestayDetailReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HomestayDetailReq.ProtoReflect.Descriptor instead.
 func (*HomestayDetailReq) Descriptor() ([]byte, []int) {
-	return file_travel_proto_rawDescGZIP(), []int{1}
+	return file_travel_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *HomestayDetailReq) GetId() int64 {
@@ -231,7 +411,7 @@ type HomestayDetailResp struct {
 func (x *HomestayDetailResp) Reset() {
 	*x = HomestayDetailResp{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_travel_proto_msgTypes[2]
+		mi := &file_travel_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -244,7 +424,7 @@ func (x *HomestayDetailResp) String() string {
 func (*HomestayDetailResp) ProtoMessage() {}
 
 func (x *HomestayDetailResp) ProtoReflect() protoreflect.Message {
-	mi := &file_travel_proto_msgTypes[2]
+	mi := &file_travel_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -257,12 +437,802 @@ func (x *HomestayDetailResp) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HomestayDetailResp.ProtoReflect.Descriptor instead.
 func (*HomestayDetailResp) Descriptor() ([]byte, []int) {
-	return file_travel_proto_rawDescGZIP(), []int{2}
+	return file_travel_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *HomestayDetailResp) GetHomestay() *Homestay {
 	if x != nil {
 		return x.Homestay
+	}
+	return nil
+}
+
+type HomestayListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Page     int64 `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize int64 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+}
+
+func (x *HomestayListReq) Reset() {
+	*x = HomestayListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[5]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *HomestayListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HomestayListReq) ProtoMessage() {}
+
+func (x *HomestayListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[5]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HomestayListReq.ProtoReflect.Descriptor instead.
+func (*HomestayListReq) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *HomestayListReq) GetPage() int64 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *HomestayListReq) GetPageSize() int64 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+type HomestayListResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Homestaylist []*Homestay `protobuf:"bytes,1,rep,name=homestaylist,proto3" json:"homestaylist,omitempty"`
+}
+
+func (x *HomestayListResp) Reset() {
+	*x = HomestayListResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *HomestayListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HomestayListResp) ProtoMessage() {}
+
+func (x *HomestayListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HomestayListResp.ProtoReflect.Descriptor instead.
+func (*HomestayListResp) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *HomestayListResp) GetHomestaylist() []*Homestay {
+	if x != nil {
+		return x.Homestaylist
+	}
+	return nil
+}
+
+type BusinessListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	LastId               int64 `protobuf:"varint,1,opt,name=last_id,json=lastId,proto3" json:"last_id,omitempty"`
+	PageSize             int64 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	Homestay_Business_Id int64 `protobuf:"varint,3,opt,name=Homestay_Business_Id,json=HomestayBusinessId,proto3" json:"Homestay_Business_Id,omitempty"`
+}
+
+func (x *BusinessListReq) Reset() {
+	*x = BusinessListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *BusinessListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BusinessListReq) ProtoMessage() {}
+
+func (x *BusinessListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BusinessListReq.ProtoReflect.Descriptor instead.
+func (*BusinessListReq) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *BusinessListReq) GetLastId() int64 {
+	if x != nil {
+		return x.LastId
+	}
+	return 0
+}
+
+func (x *BusinessListReq) GetPageSize() int64 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *BusinessListReq) GetHomestay_Business_Id() int64 {
+	if x != nil {
+		return x.Homestay_Business_Id
+	}
+	return 0
+}
+
+type BusinessListResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Homestaylist []*Homestay `protobuf:"bytes,1,rep,name=homestaylist,proto3" json:"homestaylist,omitempty"`
+}
+
+func (x *BusinessListResp) Reset() {
+	*x = BusinessListResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[8]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *BusinessListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BusinessListResp) ProtoMessage() {}
+
+func (x *BusinessListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[8]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BusinessListResp.ProtoReflect.Descriptor instead.
+func (*BusinessListResp) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *BusinessListResp) GetHomestaylist() []*Homestay {
+	if x != nil {
+		return x.Homestaylist
+	}
+	return nil
+}
+
+type GuessListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *GuessListReq) Reset() {
+	*x = GuessListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GuessListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GuessListReq) ProtoMessage() {}
+
+func (x *GuessListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GuessListReq.ProtoReflect.Descriptor instead.
+func (*GuessListReq) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{9}
+}
+
+type GuessListResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Homestaylist []*Homestay `protobuf:"bytes,1,rep,name=homestaylist,proto3" json:"homestaylist,omitempty"`
+}
+
+func (x *GuessListResp) Reset() {
+	*x = GuessListResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GuessListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GuessListResp) ProtoMessage() {}
+
+func (x *GuessListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GuessListResp.ProtoReflect.Descriptor instead.
+func (*GuessListResp) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GuessListResp) GetHomestaylist() []*Homestay {
+	if x != nil {
+		return x.Homestaylist
+	}
+	return nil
+}
+
+type GoodbossReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *GoodbossReq) Reset() {
+	*x = GoodbossReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GoodbossReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GoodbossReq) ProtoMessage() {}
+
+func (x *GoodbossReq) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GoodbossReq.ProtoReflect.Descriptor instead.
+func (*GoodbossReq) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{11}
+}
+
+type GoodbossResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Bosslist []*HomestayBusinessBoss `protobuf:"bytes,1,rep,name=bosslist,proto3" json:"bosslist,omitempty"`
+}
+
+func (x *GoodbossResp) Reset() {
+	*x = GoodbossResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GoodbossResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GoodbossResp) ProtoMessage() {}
+
+func (x *GoodbossResp) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GoodbossResp.ProtoReflect.Descriptor instead.
+func (*GoodbossResp) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GoodbossResp) GetBosslist() []*HomestayBusinessBoss {
+	if x != nil {
+		return x.Bosslist
+	}
+	return nil
+}
+
+type BussinessReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+}
+
+func (x *BussinessReq) Reset() {
+	*x = BussinessReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *BussinessReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BussinessReq) ProtoMessage() {}
+
+func (x *BussinessReq) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BussinessReq.ProtoReflect.Descriptor instead.
+func (*BussinessReq) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *BussinessReq) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type BussinessResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Boss *HomestayBusinessBoss `protobuf:"bytes,1,opt,name=boss,proto3" json:"boss,omitempty"`
+}
+
+func (x *BussinessResp) Reset() {
+	*x = BussinessResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *BussinessResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*BussinessResp) ProtoMessage() {}
+
+func (x *BussinessResp) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use BussinessResp.ProtoReflect.Descriptor instead.
+func (*BussinessResp) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *BussinessResp) GetBoss() *HomestayBusinessBoss {
+	if x != nil {
+		return x.Boss
+	}
+	return nil
+}
+
+type HomestaybussinesslistReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Lastid   int64 `protobuf:"varint,1,opt,name=lastid,proto3" json:"lastid,omitempty"`
+	Pagesize int64 `protobuf:"varint,2,opt,name=pagesize,proto3" json:"pagesize,omitempty"`
+}
+
+func (x *HomestaybussinesslistReq) Reset() {
+	*x = HomestaybussinesslistReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *HomestaybussinesslistReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HomestaybussinesslistReq) ProtoMessage() {}
+
+func (x *HomestaybussinesslistReq) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HomestaybussinesslistReq.ProtoReflect.Descriptor instead.
+func (*HomestaybussinesslistReq) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *HomestaybussinesslistReq) GetLastid() int64 {
+	if x != nil {
+		return x.Lastid
+	}
+	return 0
+}
+
+func (x *HomestaybussinesslistReq) GetPagesize() int64 {
+	if x != nil {
+		return x.Pagesize
+	}
+	return 0
+}
+
+type HomestaybussinesslistResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Bosslist []*HomestayBusinessBoss `protobuf:"bytes,1,rep,name=bosslist,proto3" json:"bosslist,omitempty"`
+}
+
+func (x *HomestaybussinesslistResp) Reset() {
+	*x = HomestaybussinesslistResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *HomestaybussinesslistResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*HomestaybussinesslistResp) ProtoMessage() {}
+
+func (x *HomestaybussinesslistResp) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use HomestaybussinesslistResp.ProtoReflect.Descriptor instead.
+func (*HomestaybussinesslistResp) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *HomestaybussinesslistResp) GetBosslist() []*HomestayBusinessBoss {
+	if x != nil {
+		return x.Bosslist
+	}
+	return nil
+}
+
+type CommentListbyIdReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id       int64 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Lastid   int64 `protobuf:"varint,2,opt,name=lastid,proto3" json:"lastid,omitempty"`
+	Pagesize int64 `protobuf:"varint,3,opt,name=pagesize,proto3" json:"pagesize,omitempty"`
+}
+
+func (x *CommentListbyIdReq) Reset() {
+	*x = CommentListbyIdReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CommentListbyIdReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CommentListbyIdReq) ProtoMessage() {}
+
+func (x *CommentListbyIdReq) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CommentListbyIdReq.ProtoReflect.Descriptor instead.
+func (*CommentListbyIdReq) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *CommentListbyIdReq) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *CommentListbyIdReq) GetLastid() int64 {
+	if x != nil {
+		return x.Lastid
+	}
+	return 0
+}
+
+func (x *CommentListbyIdReq) GetPagesize() int64 {
+	if x != nil {
+		return x.Pagesize
+	}
+	return 0
+}
+
+type CommentListbyIdResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	CommentList []*HomestayComment `protobuf:"bytes,1,rep,name=commentList,proto3" json:"commentList,omitempty"`
+}
+
+func (x *CommentListbyIdResp) Reset() {
+	*x = CommentListbyIdResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CommentListbyIdResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CommentListbyIdResp) ProtoMessage() {}
+
+func (x *CommentListbyIdResp) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CommentListbyIdResp.ProtoReflect.Descriptor instead.
+func (*CommentListbyIdResp) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *CommentListbyIdResp) GetCommentList() []*HomestayComment {
+	if x != nil {
+		return x.CommentList
+	}
+	return nil
+}
+
+type CommentListReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Lastid   int64 `protobuf:"varint,1,opt,name=lastid,proto3" json:"lastid,omitempty"`
+	Pagesize int64 `protobuf:"varint,2,opt,name=pagesize,proto3" json:"pagesize,omitempty"`
+}
+
+func (x *CommentListReq) Reset() {
+	*x = CommentListReq{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CommentListReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CommentListReq) ProtoMessage() {}
+
+func (x *CommentListReq) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CommentListReq.ProtoReflect.Descriptor instead.
+func (*CommentListReq) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *CommentListReq) GetLastid() int64 {
+	if x != nil {
+		return x.Lastid
+	}
+	return 0
+}
+
+func (x *CommentListReq) GetPagesize() int64 {
+	if x != nil {
+		return x.Pagesize
+	}
+	return 0
+}
+
+type CommentListResp struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	CommentList []*HomestayComment `protobuf:"bytes,1,rep,name=commentList,proto3" json:"commentList,omitempty"`
+}
+
+func (x *CommentListResp) Reset() {
+	*x = CommentListResp{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_travel_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *CommentListResp) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CommentListResp) ProtoMessage() {}
+
+func (x *CommentListResp) ProtoReflect() protoreflect.Message {
+	mi := &file_travel_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CommentListResp.ProtoReflect.Descriptor instead.
+func (*CommentListResp) Descriptor() ([]byte, []int) {
+	return file_travel_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *CommentListResp) GetCommentList() []*HomestayComment {
+	if x != nil {
+		return x.CommentList
 	}
 	return nil
 }
@@ -297,19 +1267,141 @@ var file_travel_proto_rawDesc = []byte{
 	0x73, 0x74, 0x61, 0x79, 0x50, 0x72, 0x69, 0x63, 0x65, 0x12, 0x30, 0x0a, 0x13, 0x6d, 0x61, 0x72,
 	0x6b, 0x65, 0x74, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x50, 0x72, 0x69, 0x63, 0x65,
 	0x18, 0x0e, 0x20, 0x01, 0x28, 0x03, 0x52, 0x13, 0x6d, 0x61, 0x72, 0x6b, 0x65, 0x74, 0x48, 0x6f,
-	0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x50, 0x72, 0x69, 0x63, 0x65, 0x22, 0x23, 0x0a, 0x11, 0x48,
-	0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x52, 0x65, 0x71,
-	0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64,
-	0x22, 0x3e, 0x0a, 0x12, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x44, 0x65, 0x74, 0x61,
-	0x69, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x12, 0x28, 0x0a, 0x08, 0x68, 0x6f, 0x6d, 0x65, 0x73, 0x74,
-	0x61, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x70, 0x62, 0x2e, 0x48, 0x6f,
-	0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x52, 0x08, 0x68, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79,
-	0x32, 0x49, 0x0a, 0x06, 0x74, 0x72, 0x61, 0x76, 0x65, 0x6c, 0x12, 0x3f, 0x0a, 0x0e, 0x68, 0x6f,
-	0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x12, 0x15, 0x2e, 0x70,
-	0x62, 0x2e, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c,
-	0x52, 0x65, 0x71, 0x1a, 0x16, 0x2e, 0x70, 0x62, 0x2e, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61,
-	0x79, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x42, 0x06, 0x5a, 0x04, 0x2e,
-	0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x50, 0x72, 0x69, 0x63, 0x65, 0x22, 0x9a, 0x01, 0x0a, 0x14,
+	0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73,
+	0x42, 0x6f, 0x73, 0x73, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x02, 0x69, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x69, 0x64, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x69, 0x64, 0x12, 0x1a, 0x0a, 0x08,
+	0x4e, 0x69, 0x63, 0x6b, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
+	0x4e, 0x69, 0x63, 0x6b, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x41, 0x76, 0x61, 0x74,
+	0x61, 0x72, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x41, 0x76, 0x61, 0x74, 0x61, 0x72,
+	0x12, 0x12, 0x0a, 0x04, 0x49, 0x6e, 0x66, 0x6f, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04,
+	0x49, 0x6e, 0x66, 0x6f, 0x12, 0x12, 0x0a, 0x04, 0x52, 0x61, 0x6e, 0x6b, 0x18, 0x06, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x04, 0x52, 0x61, 0x6e, 0x6b, 0x22, 0xbb, 0x01, 0x0a, 0x0f, 0x48, 0x6f, 0x6d,
+	0x65, 0x73, 0x74, 0x61, 0x79, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x0e, 0x0a, 0x02,
+	0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x64, 0x12, 0x1e, 0x0a, 0x0a,
+	0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x49, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x0a, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x49, 0x64, 0x12, 0x18, 0x0a, 0x07,
+	0x43, 0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x43,
+	0x6f, 0x6e, 0x74, 0x65, 0x6e, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x53, 0x74, 0x61, 0x72, 0x18, 0x04,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x53, 0x74, 0x61, 0x72, 0x12, 0x16, 0x0a, 0x06, 0x55, 0x73,
+	0x65, 0x72, 0x49, 0x64, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x55, 0x73, 0x65, 0x72,
+	0x49, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x4e, 0x69, 0x63, 0x6b, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x06,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x4e, 0x69, 0x63, 0x6b, 0x6e, 0x61, 0x6d, 0x65, 0x12, 0x16,
+	0x0a, 0x06, 0x41, 0x76, 0x61, 0x74, 0x61, 0x72, 0x18, 0x07, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06,
+	0x41, 0x76, 0x61, 0x74, 0x61, 0x72, 0x22, 0x23, 0x0a, 0x11, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74,
+	0x61, 0x79, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x3e, 0x0a, 0x12, 0x48,
+	0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x52, 0x65, 0x73,
+	0x70, 0x12, 0x28, 0x0a, 0x08, 0x68, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x70, 0x62, 0x2e, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61,
+	0x79, 0x52, 0x08, 0x68, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x22, 0x42, 0x0a, 0x0f, 0x48,
+	0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x12,
+	0x0a, 0x04, 0x70, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x70, 0x61,
+	0x67, 0x65, 0x12, 0x1b, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x73, 0x69, 0x7a, 0x65, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x22,
+	0x44, 0x0a, 0x10, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x52,
+	0x65, 0x73, 0x70, 0x12, 0x30, 0x0a, 0x0c, 0x68, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x6c,
+	0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x70, 0x62, 0x2e, 0x48,
+	0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x52, 0x0c, 0x68, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61,
+	0x79, 0x6c, 0x69, 0x73, 0x74, 0x22, 0x79, 0x0a, 0x0f, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73,
+	0x73, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x17, 0x0a, 0x07, 0x6c, 0x61, 0x73, 0x74,
+	0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x6c, 0x61, 0x73, 0x74, 0x49,
+	0x64, 0x12, 0x1b, 0x0a, 0x09, 0x70, 0x61, 0x67, 0x65, 0x5f, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x70, 0x61, 0x67, 0x65, 0x53, 0x69, 0x7a, 0x65, 0x12, 0x30,
+	0x0a, 0x14, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x5f, 0x42, 0x75, 0x73, 0x69, 0x6e,
+	0x65, 0x73, 0x73, 0x5f, 0x49, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x12, 0x48, 0x6f,
+	0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x49, 0x64,
+	0x22, 0x44, 0x0a, 0x10, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x4c, 0x69, 0x73, 0x74,
+	0x52, 0x65, 0x73, 0x70, 0x12, 0x30, 0x0a, 0x0c, 0x68, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79,
+	0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0c, 0x2e, 0x70, 0x62, 0x2e,
+	0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x52, 0x0c, 0x68, 0x6f, 0x6d, 0x65, 0x73, 0x74,
+	0x61, 0x79, 0x6c, 0x69, 0x73, 0x74, 0x22, 0x0e, 0x0a, 0x0c, 0x47, 0x75, 0x65, 0x73, 0x73, 0x4c,
+	0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x22, 0x41, 0x0a, 0x0d, 0x47, 0x75, 0x65, 0x73, 0x73, 0x4c,
+	0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x12, 0x30, 0x0a, 0x0c, 0x68, 0x6f, 0x6d, 0x65, 0x73,
+	0x74, 0x61, 0x79, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0c, 0x2e,
+	0x70, 0x62, 0x2e, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x52, 0x0c, 0x68, 0x6f, 0x6d,
+	0x65, 0x73, 0x74, 0x61, 0x79, 0x6c, 0x69, 0x73, 0x74, 0x22, 0x0d, 0x0a, 0x0b, 0x47, 0x6f, 0x6f,
+	0x64, 0x62, 0x6f, 0x73, 0x73, 0x52, 0x65, 0x71, 0x22, 0x44, 0x0a, 0x0c, 0x47, 0x6f, 0x6f, 0x64,
+	0x62, 0x6f, 0x73, 0x73, 0x52, 0x65, 0x73, 0x70, 0x12, 0x34, 0x0a, 0x08, 0x62, 0x6f, 0x73, 0x73,
+	0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x70, 0x62, 0x2e,
+	0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73,
+	0x42, 0x6f, 0x73, 0x73, 0x52, 0x08, 0x62, 0x6f, 0x73, 0x73, 0x6c, 0x69, 0x73, 0x74, 0x22, 0x1e,
+	0x0a, 0x0c, 0x42, 0x75, 0x73, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x52, 0x65, 0x71, 0x12, 0x0e,
+	0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x22, 0x3d,
+	0x0a, 0x0d, 0x42, 0x75, 0x73, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x52, 0x65, 0x73, 0x70, 0x12,
+	0x2c, 0x0a, 0x04, 0x62, 0x6f, 0x73, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x18, 0x2e,
+	0x70, 0x62, 0x2e, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x42, 0x75, 0x73, 0x69, 0x6e,
+	0x65, 0x73, 0x73, 0x42, 0x6f, 0x73, 0x73, 0x52, 0x04, 0x62, 0x6f, 0x73, 0x73, 0x22, 0x4e, 0x0a,
+	0x18, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x62, 0x75, 0x73, 0x73, 0x69, 0x6e, 0x65,
+	0x73, 0x73, 0x6c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x16, 0x0a, 0x06, 0x6c, 0x61, 0x73,
+	0x74, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x6c, 0x61, 0x73, 0x74, 0x69,
+	0x64, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x67, 0x65, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x08, 0x70, 0x61, 0x67, 0x65, 0x73, 0x69, 0x7a, 0x65, 0x22, 0x51, 0x0a,
+	0x19, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x62, 0x75, 0x73, 0x73, 0x69, 0x6e, 0x65,
+	0x73, 0x73, 0x6c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x12, 0x34, 0x0a, 0x08, 0x62, 0x6f,
+	0x73, 0x73, 0x6c, 0x69, 0x73, 0x74, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x18, 0x2e, 0x70,
+	0x62, 0x2e, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65,
+	0x73, 0x73, 0x42, 0x6f, 0x73, 0x73, 0x52, 0x08, 0x62, 0x6f, 0x73, 0x73, 0x6c, 0x69, 0x73, 0x74,
+	0x22, 0x58, 0x0a, 0x12, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x62,
+	0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x6c, 0x61, 0x73, 0x74, 0x69, 0x64,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x6c, 0x61, 0x73, 0x74, 0x69, 0x64, 0x12, 0x1a,
+	0x0a, 0x08, 0x70, 0x61, 0x67, 0x65, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x08, 0x70, 0x61, 0x67, 0x65, 0x73, 0x69, 0x7a, 0x65, 0x22, 0x4c, 0x0a, 0x13, 0x43, 0x6f,
+	0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x62, 0x79, 0x49, 0x64, 0x52, 0x65, 0x73,
+	0x70, 0x12, 0x35, 0x0a, 0x0b, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73, 0x74,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70, 0x62, 0x2e, 0x48, 0x6f, 0x6d, 0x65,
+	0x73, 0x74, 0x61, 0x79, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x0b, 0x63, 0x6f, 0x6d,
+	0x6d, 0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x22, 0x44, 0x0a, 0x0e, 0x43, 0x6f, 0x6d, 0x6d,
+	0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x12, 0x16, 0x0a, 0x06, 0x6c, 0x61,
+	0x73, 0x74, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x6c, 0x61, 0x73, 0x74,
+	0x69, 0x64, 0x12, 0x1a, 0x0a, 0x08, 0x70, 0x61, 0x67, 0x65, 0x73, 0x69, 0x7a, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x08, 0x70, 0x61, 0x67, 0x65, 0x73, 0x69, 0x7a, 0x65, 0x22, 0x48,
+	0x0a, 0x0f, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73,
+	0x70, 0x12, 0x35, 0x0a, 0x0b, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73, 0x74,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x13, 0x2e, 0x70, 0x62, 0x2e, 0x48, 0x6f, 0x6d, 0x65,
+	0x73, 0x74, 0x61, 0x79, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x0b, 0x63, 0x6f, 0x6d,
+	0x6d, 0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x32, 0xf3, 0x01, 0x0a, 0x08, 0x68, 0x6f, 0x6d,
+	0x65, 0x73, 0x74, 0x61, 0x79, 0x12, 0x3f, 0x0a, 0x0e, 0x68, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61,
+	0x79, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x12, 0x15, 0x2e, 0x70, 0x62, 0x2e, 0x48, 0x6f, 0x6d,
+	0x65, 0x73, 0x74, 0x61, 0x79, 0x44, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x52, 0x65, 0x71, 0x1a, 0x16,
+	0x2e, 0x70, 0x62, 0x2e, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x44, 0x65, 0x74, 0x61,
+	0x69, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x12, 0x39, 0x0a, 0x0c, 0x68, 0x6f, 0x6d, 0x65, 0x73, 0x74,
+	0x61, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x13, 0x2e, 0x70, 0x62, 0x2e, 0x48, 0x6f, 0x6d, 0x65,
+	0x73, 0x74, 0x61, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x14, 0x2e, 0x70, 0x62,
+	0x2e, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73,
+	0x70, 0x12, 0x39, 0x0a, 0x0c, 0x62, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x4c, 0x69, 0x73,
+	0x74, 0x12, 0x13, 0x2e, 0x70, 0x62, 0x2e, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x4c,
+	0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x14, 0x2e, 0x70, 0x62, 0x2e, 0x42, 0x75, 0x73, 0x69,
+	0x6e, 0x65, 0x73, 0x73, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x12, 0x30, 0x0a, 0x09,
+	0x67, 0x75, 0x65, 0x73, 0x73, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x10, 0x2e, 0x70, 0x62, 0x2e, 0x47,
+	0x75, 0x65, 0x73, 0x73, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x11, 0x2e, 0x70, 0x62,
+	0x2e, 0x47, 0x75, 0x65, 0x73, 0x73, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x32, 0xd8,
+	0x01, 0x0a, 0x11, 0x68, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x62, 0x75, 0x73, 0x73, 0x69,
+	0x6e, 0x65, 0x73, 0x73, 0x12, 0x2d, 0x0a, 0x08, 0x67, 0x6f, 0x6f, 0x64, 0x62, 0x6f, 0x73, 0x73,
+	0x12, 0x0f, 0x2e, 0x70, 0x62, 0x2e, 0x47, 0x6f, 0x6f, 0x64, 0x62, 0x6f, 0x73, 0x73, 0x52, 0x65,
+	0x71, 0x1a, 0x10, 0x2e, 0x70, 0x62, 0x2e, 0x47, 0x6f, 0x6f, 0x64, 0x62, 0x6f, 0x73, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x12, 0x3e, 0x0a, 0x17, 0x68, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x62,
+	0x75, 0x73, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x64, 0x65, 0x74, 0x61, 0x69, 0x6c, 0x12, 0x10,
+	0x2e, 0x70, 0x62, 0x2e, 0x42, 0x75, 0x73, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x52, 0x65, 0x71,
+	0x1a, 0x11, 0x2e, 0x70, 0x62, 0x2e, 0x42, 0x75, 0x73, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x52,
+	0x65, 0x73, 0x70, 0x12, 0x54, 0x0a, 0x15, 0x68, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x62,
+	0x75, 0x73, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x6c, 0x69, 0x73, 0x74, 0x12, 0x1c, 0x2e, 0x70,
+	0x62, 0x2e, 0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x62, 0x75, 0x73, 0x73, 0x69, 0x6e,
+	0x65, 0x73, 0x73, 0x6c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x1d, 0x2e, 0x70, 0x62, 0x2e,
+	0x48, 0x6f, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x62, 0x75, 0x73, 0x73, 0x69, 0x6e, 0x65, 0x73,
+	0x73, 0x6c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x32, 0x8d, 0x01, 0x0a, 0x0f, 0x68, 0x6f,
+	0x6d, 0x65, 0x73, 0x74, 0x61, 0x79, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x42, 0x0a,
+	0x0f, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x62, 0x79, 0x49, 0x64,
+	0x12, 0x16, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73,
+	0x74, 0x62, 0x79, 0x49, 0x64, 0x52, 0x65, 0x71, 0x1a, 0x17, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x6f,
+	0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x62, 0x79, 0x49, 0x64, 0x52, 0x65, 0x73,
+	0x70, 0x12, 0x36, 0x0a, 0x0b, 0x63, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73, 0x74,
+	0x12, 0x12, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e, 0x74, 0x4c, 0x69, 0x73,
+	0x74, 0x52, 0x65, 0x71, 0x1a, 0x13, 0x2e, 0x70, 0x62, 0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x65, 0x6e,
+	0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x42, 0x06, 0x5a, 0x04, 0x2e, 0x2f, 0x70,
+	0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -324,21 +1416,63 @@ func file_travel_proto_rawDescGZIP() []byte {
 	return file_travel_proto_rawDescData
 }
 
-var file_travel_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_travel_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
 var file_travel_proto_goTypes = []interface{}{
-	(*Homestay)(nil),           // 0: pb.Homestay
-	(*HomestayDetailReq)(nil),  // 1: pb.HomestayDetailReq
-	(*HomestayDetailResp)(nil), // 2: pb.HomestayDetailResp
+	(*Homestay)(nil),                  // 0: pb.Homestay
+	(*HomestayBusinessBoss)(nil),      // 1: pb.HomestayBusinessBoss
+	(*HomestayComment)(nil),           // 2: pb.HomestayComment
+	(*HomestayDetailReq)(nil),         // 3: pb.HomestayDetailReq
+	(*HomestayDetailResp)(nil),        // 4: pb.HomestayDetailResp
+	(*HomestayListReq)(nil),           // 5: pb.HomestayListReq
+	(*HomestayListResp)(nil),          // 6: pb.HomestayListResp
+	(*BusinessListReq)(nil),           // 7: pb.BusinessListReq
+	(*BusinessListResp)(nil),          // 8: pb.BusinessListResp
+	(*GuessListReq)(nil),              // 9: pb.GuessListReq
+	(*GuessListResp)(nil),             // 10: pb.GuessListResp
+	(*GoodbossReq)(nil),               // 11: pb.GoodbossReq
+	(*GoodbossResp)(nil),              // 12: pb.GoodbossResp
+	(*BussinessReq)(nil),              // 13: pb.BussinessReq
+	(*BussinessResp)(nil),             // 14: pb.BussinessResp
+	(*HomestaybussinesslistReq)(nil),  // 15: pb.HomestaybussinesslistReq
+	(*HomestaybussinesslistResp)(nil), // 16: pb.HomestaybussinesslistResp
+	(*CommentListbyIdReq)(nil),        // 17: pb.CommentListbyIdReq
+	(*CommentListbyIdResp)(nil),       // 18: pb.CommentListbyIdResp
+	(*CommentListReq)(nil),            // 19: pb.CommentListReq
+	(*CommentListResp)(nil),           // 20: pb.CommentListResp
 }
 var file_travel_proto_depIdxs = []int32{
-	0, // 0: pb.HomestayDetailResp.homestay:type_name -> pb.Homestay
-	1, // 1: pb.travel.homestayDetail:input_type -> pb.HomestayDetailReq
-	2, // 2: pb.travel.homestayDetail:output_type -> pb.HomestayDetailResp
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0,  // 0: pb.HomestayDetailResp.homestay:type_name -> pb.Homestay
+	0,  // 1: pb.HomestayListResp.homestaylist:type_name -> pb.Homestay
+	0,  // 2: pb.BusinessListResp.homestaylist:type_name -> pb.Homestay
+	0,  // 3: pb.GuessListResp.homestaylist:type_name -> pb.Homestay
+	1,  // 4: pb.GoodbossResp.bosslist:type_name -> pb.HomestayBusinessBoss
+	1,  // 5: pb.BussinessResp.boss:type_name -> pb.HomestayBusinessBoss
+	1,  // 6: pb.HomestaybussinesslistResp.bosslist:type_name -> pb.HomestayBusinessBoss
+	2,  // 7: pb.CommentListbyIdResp.commentList:type_name -> pb.HomestayComment
+	2,  // 8: pb.CommentListResp.commentList:type_name -> pb.HomestayComment
+	3,  // 9: pb.homestay.homestayDetail:input_type -> pb.HomestayDetailReq
+	5,  // 10: pb.homestay.homestayList:input_type -> pb.HomestayListReq
+	7,  // 11: pb.homestay.businessList:input_type -> pb.BusinessListReq
+	9,  // 12: pb.homestay.guessList:input_type -> pb.GuessListReq
+	11, // 13: pb.homestaybussiness.goodboss:input_type -> pb.GoodbossReq
+	13, // 14: pb.homestaybussiness.homestaybussinessdetail:input_type -> pb.BussinessReq
+	15, // 15: pb.homestaybussiness.homestaybussinesslist:input_type -> pb.HomestaybussinesslistReq
+	17, // 16: pb.homestaycomment.commentListbyId:input_type -> pb.CommentListbyIdReq
+	19, // 17: pb.homestaycomment.commentList:input_type -> pb.CommentListReq
+	4,  // 18: pb.homestay.homestayDetail:output_type -> pb.HomestayDetailResp
+	6,  // 19: pb.homestay.homestayList:output_type -> pb.HomestayListResp
+	8,  // 20: pb.homestay.businessList:output_type -> pb.BusinessListResp
+	10, // 21: pb.homestay.guessList:output_type -> pb.GuessListResp
+	12, // 22: pb.homestaybussiness.goodboss:output_type -> pb.GoodbossResp
+	14, // 23: pb.homestaybussiness.homestaybussinessdetail:output_type -> pb.BussinessResp
+	16, // 24: pb.homestaybussiness.homestaybussinesslist:output_type -> pb.HomestaybussinesslistResp
+	18, // 25: pb.homestaycomment.commentListbyId:output_type -> pb.CommentListbyIdResp
+	20, // 26: pb.homestaycomment.commentList:output_type -> pb.CommentListResp
+	18, // [18:27] is the sub-list for method output_type
+	9,  // [9:18] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_travel_proto_init() }
@@ -360,7 +1494,7 @@ func file_travel_proto_init() {
 			}
 		}
 		file_travel_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*HomestayDetailReq); i {
+			switch v := v.(*HomestayBusinessBoss); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -372,7 +1506,223 @@ func file_travel_proto_init() {
 			}
 		}
 		file_travel_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HomestayComment); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HomestayDetailReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*HomestayDetailResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HomestayListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HomestayListResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*BusinessListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*BusinessListResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GuessListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GuessListResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GoodbossReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GoodbossResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*BussinessReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*BussinessResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HomestaybussinesslistReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*HomestaybussinesslistResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CommentListbyIdReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CommentListbyIdResp); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CommentListReq); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_travel_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*CommentListResp); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -390,9 +1740,9 @@ func file_travel_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_travel_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   21,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   3,
 		},
 		GoTypes:           file_travel_proto_goTypes,
 		DependencyIndexes: file_travel_proto_depIdxs,

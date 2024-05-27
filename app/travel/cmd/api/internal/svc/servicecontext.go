@@ -2,7 +2,10 @@ package svc
 
 import (
 	"Book_Homestay/app/travel/cmd/api/internal/config"
-	"Book_Homestay/app/travel/cmd/rpc/travel"
+	
+	"Book_Homestay/app/travel/cmd/rpc/client/homestay"
+	"Book_Homestay/app/travel/cmd/rpc/client/homestaybussiness"
+	"Book_Homestay/app/travel/cmd/rpc/client/homestaycomment"
 	"Book_Homestay/app/travel/model"
 	"Book_Homestay/app/user/cmd/rpc/user"
 
@@ -15,7 +18,9 @@ type ServiceContext struct {
 
 	//rpc
 	UserRpc      user.UserZrpcClient
-	TravelRpc    travel.Travel
+	Homestay_TravelRpc homestay.HomestayZrpcClient
+	Bussiness_TravelRpc    homestaybussiness.Homestaybussiness
+	Comment_TravelRpc      homestaycomment.Homestaycomment
 
 	//model
 	HomestayModel         model.HomestayModel
@@ -31,7 +36,9 @@ func NewServiceContext(c config.Config) *ServiceContext {
 		Config: c,
 
 		UserRpc: user.NewUserZrpcClient(zrpc.MustNewClient(c.UserRpcConf)),
-		TravelRpc: travel.NewTravel(zrpc.MustNewClient(c.TravelRpcConf)),
+		Homestay_TravelRpc: homestay.NewHomestayZrpcClient(zrpc.MustNewClient(c.TravelRpcConf)),
+		Bussiness_TravelRpc: homestaybussiness.NewHomestaybussiness(zrpc.MustNewClient(c.TravelRpcConf)),
+		Comment_TravelRpc:   homestaycomment.NewHomestaycomment(zrpc.MustNewClient(c.TravelRpcConf)),
 
 		HomestayModel: model.NewHomestayModel(sqlConn,c.Cache),
 		HomestayActivityModel: model.NewHomestayActivityModel(sqlConn,c.Cache),

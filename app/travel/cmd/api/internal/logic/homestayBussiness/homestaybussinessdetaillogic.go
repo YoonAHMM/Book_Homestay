@@ -5,9 +5,8 @@ import (
 
 	"Book_Homestay/app/travel/cmd/api/internal/svc"
 	"Book_Homestay/app/travel/cmd/api/internal/types"
-	"Book_Homestay/app/travel/model"
-	"Book_Homestay/app/user/cmd/rpc/user"
-	"Book_Homestay/common/errx"
+	"Book_Homestay/app/travel/cmd/rpc/pb"
+	
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -28,26 +27,20 @@ func NewHomestayBussinessDetailLogic(ctx context.Context, svcCtx *svc.ServiceCon
 }
 
 func (l *HomestayBussinessDetailLogic) HomestayBussinessDetail(req *types.HomestayBussinessDetailReq) (resp *types.HomestayBussinessDetailResp, err error) {
-	homestayBusiness, err := l.svcCtx.HomestayBusinessModel.FindOne(l.ctx,req.Id)
-	if err != nil && err != model.ErrNotFound {
-		return nil,errx.NewErrCode(errx.DB_ERROR,err.Error())
+	bossReq,err:=l.svcCtx.Bussiness_TravelRpc.Homestaybussinessdetail(l.ctx,&pb.BussinessReq{	
+		Id: req.Id,
+	})
+
+	if err!=nil {
+		return nil,err
 	}
 
-	var HomestayBusinessBoss types.HomestayBusinessBoss
-	if homestayBusiness != nil {
 
-		userResp, err := l.svcCtx.UserRpc.GetUserInfo(l.ctx, &user.GetUserInfoReq{
-			Id: homestayBusiness.UserId,
-		})
-		if err != nil {
-			return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
-		}
-		if userResp.User != nil && userResp.User.Id > 0 {
-			_ = copier.Copy(&HomestayBusinessBoss, userResp.User)
-		}
-	}
+	var boss types.HomestayBusinessBoss
+	_ = copier.Copy(&boss,bossReq)
+	
 
 	return &types.HomestayBussinessDetailResp{
-		Boss: HomestayBusinessBoss,
+		Boss: boss,
 	}, nil
 }

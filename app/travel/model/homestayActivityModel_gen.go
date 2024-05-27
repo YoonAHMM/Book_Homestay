@@ -35,6 +35,7 @@ type (
 		Insert(ctx context.Context, session sqlx.Session, data *HomestayActivity) (sql.Result, error)
 		FindOne(ctx context.Context, id int64) (*HomestayActivity, error)
 		Update(ctx context.Context, session sqlx.Session, data *HomestayActivity) (sql.Result, error)
+		
 		UpdateWithVersion(ctx context.Context, session sqlx.Session, data *HomestayActivity) error
 		Trans(ctx context.Context, fn func(context context.Context, session sqlx.Session) error) error
 		SelectBuilder() squirrel.SelectBuilder

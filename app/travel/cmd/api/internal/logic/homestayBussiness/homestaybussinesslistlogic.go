@@ -5,8 +5,8 @@ import (
 
 	"Book_Homestay/app/travel/cmd/api/internal/svc"
 	"Book_Homestay/app/travel/cmd/api/internal/types"
-	"Book_Homestay/common/errx"
-
+	"Book_Homestay/app/travel/cmd/rpc/pb"
+	
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -26,22 +26,25 @@ func NewHomestayBussinessListLogic(ctx context.Context, svcCtx *svc.ServiceConte
 }
 
 func (l *HomestayBussinessListLogic) HomestayBussinessList(req *types.HomestayBussinessListReq) (resp *types.HomestayBussinessListResp, err error) {
-	Builder := l.svcCtx.HomestayBusinessModel.SelectBuilder()
-	list, err := l.svcCtx.HomestayBusinessModel.FindPageListByIdDESC(l.ctx, Builder, req.LastId, req.PageSize)
-	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+	bossReq,err:=l.svcCtx.Bussiness_TravelRpc.Homestaybussinesslist(l.ctx,&pb.HomestaybussinesslistReq{	
+		Lastid: req.LastId,
+		Pagesize: req.PageSize,
+	})
+
+	if err!=nil {
+		return nil,err
 	}
 
-	var resp_list []types.HomestayBusinessListInfo
-	if len(list) > 0 {
-		for _, item := range list {
-			var HomestayBusinessListInfo types.HomestayBusinessListInfo
-			_ = copier.Copy(&HomestayBusinessListInfo, item)
+	var resp_list [] types.HomestayBusinessListInfo
 
-			resp_list = append(resp_list, HomestayBusinessListInfo)
-		}
+	for _,Boss:= range bossReq.Bosslist{
+
+		var boss types.HomestayBusinessListInfo
+		_ = copier.Copy(&boss,Boss)
+
+		resp_list = append(resp_list, boss)
 	}
-
+	
 	return &types.HomestayBussinessListResp{
 		List: resp_list,
 	}, nil

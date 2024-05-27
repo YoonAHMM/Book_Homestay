@@ -19,91 +19,491 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Travel_HomestayDetail_FullMethodName = "/pb.travel/homestayDetail"
+	Homestay_HomestayDetail_FullMethodName = "/pb.homestay/homestayDetail"
+	Homestay_HomestayList_FullMethodName   = "/pb.homestay/homestayList"
+	Homestay_BusinessList_FullMethodName   = "/pb.homestay/businessList"
+	Homestay_GuessList_FullMethodName      = "/pb.homestay/guessList"
 )
 
-// TravelClient is the client API for Travel service.
+// HomestayClient is the client API for Homestay service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type TravelClient interface {
-	// homestayDetail
+type HomestayClient interface {
 	HomestayDetail(ctx context.Context, in *HomestayDetailReq, opts ...grpc.CallOption) (*HomestayDetailResp, error)
+	HomestayList(ctx context.Context, in *HomestayListReq, opts ...grpc.CallOption) (*HomestayListResp, error)
+	BusinessList(ctx context.Context, in *BusinessListReq, opts ...grpc.CallOption) (*BusinessListResp, error)
+	GuessList(ctx context.Context, in *GuessListReq, opts ...grpc.CallOption) (*GuessListResp, error)
 }
 
-type travelClient struct {
+type homestayClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewTravelClient(cc grpc.ClientConnInterface) TravelClient {
-	return &travelClient{cc}
+func NewHomestayClient(cc grpc.ClientConnInterface) HomestayClient {
+	return &homestayClient{cc}
 }
 
-func (c *travelClient) HomestayDetail(ctx context.Context, in *HomestayDetailReq, opts ...grpc.CallOption) (*HomestayDetailResp, error) {
+func (c *homestayClient) HomestayDetail(ctx context.Context, in *HomestayDetailReq, opts ...grpc.CallOption) (*HomestayDetailResp, error) {
 	out := new(HomestayDetailResp)
-	err := c.cc.Invoke(ctx, Travel_HomestayDetail_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Homestay_HomestayDetail_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// TravelServer is the server API for Travel service.
-// All implementations must embed UnimplementedTravelServer
+func (c *homestayClient) HomestayList(ctx context.Context, in *HomestayListReq, opts ...grpc.CallOption) (*HomestayListResp, error) {
+	out := new(HomestayListResp)
+	err := c.cc.Invoke(ctx, Homestay_HomestayList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *homestayClient) BusinessList(ctx context.Context, in *BusinessListReq, opts ...grpc.CallOption) (*BusinessListResp, error) {
+	out := new(BusinessListResp)
+	err := c.cc.Invoke(ctx, Homestay_BusinessList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *homestayClient) GuessList(ctx context.Context, in *GuessListReq, opts ...grpc.CallOption) (*GuessListResp, error) {
+	out := new(GuessListResp)
+	err := c.cc.Invoke(ctx, Homestay_GuessList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// HomestayServer is the server API for Homestay service.
+// All implementations must embed UnimplementedHomestayServer
 // for forward compatibility
-type TravelServer interface {
-	// homestayDetail
+type HomestayServer interface {
 	HomestayDetail(context.Context, *HomestayDetailReq) (*HomestayDetailResp, error)
-	mustEmbedUnimplementedTravelServer()
+	HomestayList(context.Context, *HomestayListReq) (*HomestayListResp, error)
+	BusinessList(context.Context, *BusinessListReq) (*BusinessListResp, error)
+	GuessList(context.Context, *GuessListReq) (*GuessListResp, error)
+	mustEmbedUnimplementedHomestayServer()
 }
 
-// UnimplementedTravelServer must be embedded to have forward compatible implementations.
-type UnimplementedTravelServer struct {
+// UnimplementedHomestayServer must be embedded to have forward compatible implementations.
+type UnimplementedHomestayServer struct {
 }
 
-func (UnimplementedTravelServer) HomestayDetail(context.Context, *HomestayDetailReq) (*HomestayDetailResp, error) {
+func (UnimplementedHomestayServer) HomestayDetail(context.Context, *HomestayDetailReq) (*HomestayDetailResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HomestayDetail not implemented")
 }
-func (UnimplementedTravelServer) mustEmbedUnimplementedTravelServer() {}
+func (UnimplementedHomestayServer) HomestayList(context.Context, *HomestayListReq) (*HomestayListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method HomestayList not implemented")
+}
+func (UnimplementedHomestayServer) BusinessList(context.Context, *BusinessListReq) (*BusinessListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BusinessList not implemented")
+}
+func (UnimplementedHomestayServer) GuessList(context.Context, *GuessListReq) (*GuessListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GuessList not implemented")
+}
+func (UnimplementedHomestayServer) mustEmbedUnimplementedHomestayServer() {}
 
-// UnsafeTravelServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to TravelServer will
+// UnsafeHomestayServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to HomestayServer will
 // result in compilation errors.
-type UnsafeTravelServer interface {
-	mustEmbedUnimplementedTravelServer()
+type UnsafeHomestayServer interface {
+	mustEmbedUnimplementedHomestayServer()
 }
 
-func RegisterTravelServer(s grpc.ServiceRegistrar, srv TravelServer) {
-	s.RegisterService(&Travel_ServiceDesc, srv)
+func RegisterHomestayServer(s grpc.ServiceRegistrar, srv HomestayServer) {
+	s.RegisterService(&Homestay_ServiceDesc, srv)
 }
 
-func _Travel_HomestayDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Homestay_HomestayDetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(HomestayDetailReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TravelServer).HomestayDetail(ctx, in)
+		return srv.(HomestayServer).HomestayDetail(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Travel_HomestayDetail_FullMethodName,
+		FullMethod: Homestay_HomestayDetail_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TravelServer).HomestayDetail(ctx, req.(*HomestayDetailReq))
+		return srv.(HomestayServer).HomestayDetail(ctx, req.(*HomestayDetailReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Travel_ServiceDesc is the grpc.ServiceDesc for Travel service.
+func _Homestay_HomestayList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HomestayListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HomestayServer).HomestayList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Homestay_HomestayList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HomestayServer).HomestayList(ctx, req.(*HomestayListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Homestay_BusinessList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BusinessListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HomestayServer).BusinessList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Homestay_BusinessList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HomestayServer).BusinessList(ctx, req.(*BusinessListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Homestay_GuessList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GuessListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HomestayServer).GuessList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Homestay_GuessList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HomestayServer).GuessList(ctx, req.(*GuessListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Homestay_ServiceDesc is the grpc.ServiceDesc for Homestay service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Travel_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "pb.travel",
-	HandlerType: (*TravelServer)(nil),
+var Homestay_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pb.homestay",
+	HandlerType: (*HomestayServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "homestayDetail",
-			Handler:    _Travel_HomestayDetail_Handler,
+			Handler:    _Homestay_HomestayDetail_Handler,
+		},
+		{
+			MethodName: "homestayList",
+			Handler:    _Homestay_HomestayList_Handler,
+		},
+		{
+			MethodName: "businessList",
+			Handler:    _Homestay_BusinessList_Handler,
+		},
+		{
+			MethodName: "guessList",
+			Handler:    _Homestay_GuessList_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "travel.proto",
+}
+
+const (
+	Homestaybussiness_Goodboss_FullMethodName                = "/pb.homestaybussiness/goodboss"
+	Homestaybussiness_Homestaybussinessdetail_FullMethodName = "/pb.homestaybussiness/homestaybussinessdetail"
+	Homestaybussiness_Homestaybussinesslist_FullMethodName   = "/pb.homestaybussiness/homestaybussinesslist"
+)
+
+// HomestaybussinessClient is the client API for Homestaybussiness service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type HomestaybussinessClient interface {
+	Goodboss(ctx context.Context, in *GoodbossReq, opts ...grpc.CallOption) (*GoodbossResp, error)
+	Homestaybussinessdetail(ctx context.Context, in *BussinessReq, opts ...grpc.CallOption) (*BussinessResp, error)
+	Homestaybussinesslist(ctx context.Context, in *HomestaybussinesslistReq, opts ...grpc.CallOption) (*HomestaybussinesslistResp, error)
+}
+
+type homestaybussinessClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewHomestaybussinessClient(cc grpc.ClientConnInterface) HomestaybussinessClient {
+	return &homestaybussinessClient{cc}
+}
+
+func (c *homestaybussinessClient) Goodboss(ctx context.Context, in *GoodbossReq, opts ...grpc.CallOption) (*GoodbossResp, error) {
+	out := new(GoodbossResp)
+	err := c.cc.Invoke(ctx, Homestaybussiness_Goodboss_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *homestaybussinessClient) Homestaybussinessdetail(ctx context.Context, in *BussinessReq, opts ...grpc.CallOption) (*BussinessResp, error) {
+	out := new(BussinessResp)
+	err := c.cc.Invoke(ctx, Homestaybussiness_Homestaybussinessdetail_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *homestaybussinessClient) Homestaybussinesslist(ctx context.Context, in *HomestaybussinesslistReq, opts ...grpc.CallOption) (*HomestaybussinesslistResp, error) {
+	out := new(HomestaybussinesslistResp)
+	err := c.cc.Invoke(ctx, Homestaybussiness_Homestaybussinesslist_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// HomestaybussinessServer is the server API for Homestaybussiness service.
+// All implementations must embed UnimplementedHomestaybussinessServer
+// for forward compatibility
+type HomestaybussinessServer interface {
+	Goodboss(context.Context, *GoodbossReq) (*GoodbossResp, error)
+	Homestaybussinessdetail(context.Context, *BussinessReq) (*BussinessResp, error)
+	Homestaybussinesslist(context.Context, *HomestaybussinesslistReq) (*HomestaybussinesslistResp, error)
+	mustEmbedUnimplementedHomestaybussinessServer()
+}
+
+// UnimplementedHomestaybussinessServer must be embedded to have forward compatible implementations.
+type UnimplementedHomestaybussinessServer struct {
+}
+
+func (UnimplementedHomestaybussinessServer) Goodboss(context.Context, *GoodbossReq) (*GoodbossResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Goodboss not implemented")
+}
+func (UnimplementedHomestaybussinessServer) Homestaybussinessdetail(context.Context, *BussinessReq) (*BussinessResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Homestaybussinessdetail not implemented")
+}
+func (UnimplementedHomestaybussinessServer) Homestaybussinesslist(context.Context, *HomestaybussinesslistReq) (*HomestaybussinesslistResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Homestaybussinesslist not implemented")
+}
+func (UnimplementedHomestaybussinessServer) mustEmbedUnimplementedHomestaybussinessServer() {}
+
+// UnsafeHomestaybussinessServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to HomestaybussinessServer will
+// result in compilation errors.
+type UnsafeHomestaybussinessServer interface {
+	mustEmbedUnimplementedHomestaybussinessServer()
+}
+
+func RegisterHomestaybussinessServer(s grpc.ServiceRegistrar, srv HomestaybussinessServer) {
+	s.RegisterService(&Homestaybussiness_ServiceDesc, srv)
+}
+
+func _Homestaybussiness_Goodboss_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GoodbossReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HomestaybussinessServer).Goodboss(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Homestaybussiness_Goodboss_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HomestaybussinessServer).Goodboss(ctx, req.(*GoodbossReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Homestaybussiness_Homestaybussinessdetail_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BussinessReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HomestaybussinessServer).Homestaybussinessdetail(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Homestaybussiness_Homestaybussinessdetail_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HomestaybussinessServer).Homestaybussinessdetail(ctx, req.(*BussinessReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Homestaybussiness_Homestaybussinesslist_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(HomestaybussinesslistReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HomestaybussinessServer).Homestaybussinesslist(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Homestaybussiness_Homestaybussinesslist_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HomestaybussinessServer).Homestaybussinesslist(ctx, req.(*HomestaybussinesslistReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Homestaybussiness_ServiceDesc is the grpc.ServiceDesc for Homestaybussiness service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var Homestaybussiness_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pb.homestaybussiness",
+	HandlerType: (*HomestaybussinessServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "goodboss",
+			Handler:    _Homestaybussiness_Goodboss_Handler,
+		},
+		{
+			MethodName: "homestaybussinessdetail",
+			Handler:    _Homestaybussiness_Homestaybussinessdetail_Handler,
+		},
+		{
+			MethodName: "homestaybussinesslist",
+			Handler:    _Homestaybussiness_Homestaybussinesslist_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "travel.proto",
+}
+
+const (
+	Homestaycomment_CommentListbyId_FullMethodName = "/pb.homestaycomment/commentListbyId"
+	Homestaycomment_CommentList_FullMethodName     = "/pb.homestaycomment/commentList"
+)
+
+// HomestaycommentClient is the client API for Homestaycomment service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type HomestaycommentClient interface {
+	CommentListbyId(ctx context.Context, in *CommentListbyIdReq, opts ...grpc.CallOption) (*CommentListbyIdResp, error)
+	CommentList(ctx context.Context, in *CommentListReq, opts ...grpc.CallOption) (*CommentListResp, error)
+}
+
+type homestaycommentClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewHomestaycommentClient(cc grpc.ClientConnInterface) HomestaycommentClient {
+	return &homestaycommentClient{cc}
+}
+
+func (c *homestaycommentClient) CommentListbyId(ctx context.Context, in *CommentListbyIdReq, opts ...grpc.CallOption) (*CommentListbyIdResp, error) {
+	out := new(CommentListbyIdResp)
+	err := c.cc.Invoke(ctx, Homestaycomment_CommentListbyId_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *homestaycommentClient) CommentList(ctx context.Context, in *CommentListReq, opts ...grpc.CallOption) (*CommentListResp, error) {
+	out := new(CommentListResp)
+	err := c.cc.Invoke(ctx, Homestaycomment_CommentList_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// HomestaycommentServer is the server API for Homestaycomment service.
+// All implementations must embed UnimplementedHomestaycommentServer
+// for forward compatibility
+type HomestaycommentServer interface {
+	CommentListbyId(context.Context, *CommentListbyIdReq) (*CommentListbyIdResp, error)
+	CommentList(context.Context, *CommentListReq) (*CommentListResp, error)
+	mustEmbedUnimplementedHomestaycommentServer()
+}
+
+// UnimplementedHomestaycommentServer must be embedded to have forward compatible implementations.
+type UnimplementedHomestaycommentServer struct {
+}
+
+func (UnimplementedHomestaycommentServer) CommentListbyId(context.Context, *CommentListbyIdReq) (*CommentListbyIdResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CommentListbyId not implemented")
+}
+func (UnimplementedHomestaycommentServer) CommentList(context.Context, *CommentListReq) (*CommentListResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CommentList not implemented")
+}
+func (UnimplementedHomestaycommentServer) mustEmbedUnimplementedHomestaycommentServer() {}
+
+// UnsafeHomestaycommentServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to HomestaycommentServer will
+// result in compilation errors.
+type UnsafeHomestaycommentServer interface {
+	mustEmbedUnimplementedHomestaycommentServer()
+}
+
+func RegisterHomestaycommentServer(s grpc.ServiceRegistrar, srv HomestaycommentServer) {
+	s.RegisterService(&Homestaycomment_ServiceDesc, srv)
+}
+
+func _Homestaycomment_CommentListbyId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CommentListbyIdReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HomestaycommentServer).CommentListbyId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Homestaycomment_CommentListbyId_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HomestaycommentServer).CommentListbyId(ctx, req.(*CommentListbyIdReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Homestaycomment_CommentList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CommentListReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HomestaycommentServer).CommentList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Homestaycomment_CommentList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HomestaycommentServer).CommentList(ctx, req.(*CommentListReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// Homestaycomment_ServiceDesc is the grpc.ServiceDesc for Homestaycomment service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var Homestaycomment_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pb.homestaycomment",
+	HandlerType: (*HomestaycommentServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "commentListbyId",
+			Handler:    _Homestaycomment_CommentListbyId_Handler,
+		},
+		{
+			MethodName: "commentList",
+			Handler:    _Homestaycomment_CommentList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

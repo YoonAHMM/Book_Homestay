@@ -5,7 +5,7 @@ option go_package = "./pb";
 package pb;
 
 
-//model
+
 message Homestay {
     int64   id = 1;
     string  title = 2;
@@ -21,11 +21,28 @@ message Homestay {
     int64   foodPrice = 12;           //餐食价格(分)
     int64   homestayPrice = 13;       //民宿价格(分)
     int64   marketHomestayPrice = 14; //民宿市场价格(分)
+}
 
+message HomestayBusinessBoss {
+	int64 id =1; 
+	int64 userid=2;
+	string Nickname=3;  
+	string Avatar=4; 
+	string Info =5;     
+	int64 Rank = 6;     
+}
+
+message HomestayComment {
+	int64 Id =1;
+	int64 HomestayId =2;
+	string Content=3;
+	int64 Star=4;      
+	string UserId=5;   
+	string Nickname=6; 
+	string Avatar=7;
 }
 
 
-//req 、resp
 message HomestayDetailReq {
   int64   id = 1;
 }
@@ -33,10 +50,91 @@ message HomestayDetailResp {
   Homestay homestay = 1;
 }
 
-
-
-//service
-service travel {
-    //homestayDetail
-    rpc homestayDetail(HomestayDetailReq) returns(HomestayDetailResp);
+message HomestayListReq {
+  int64 page =1;
+  int64 page_size =2;
 }
+message HomestayListResp {
+  repeated Homestay homestaylist=1;
+}
+
+message BusinessListReq {
+  int64 last_id =1;
+  int64 page_size =2;
+  int64 Homestay_Business_Id=3;
+}
+message BusinessListResp {
+  repeated Homestay homestaylist=1;
+}
+
+message GuessListReq {
+}
+
+message GuessListResp {
+  repeated Homestay homestaylist=1;
+}
+
+
+
+
+service homestay {
+    rpc homestayDetail(HomestayDetailReq) returns(HomestayDetailResp);
+    rpc homestayList(HomestayListReq) returns(HomestayListResp);
+    rpc businessList(BusinessListReq) returns(BusinessListResp);
+    rpc guessList(GuessListReq) returns(GuessListResp);
+}
+
+
+message GoodbossReq{
+}
+
+message  GoodbossResp {
+  repeated HomestayBusinessBoss bosslist=1;
+}
+
+message BussinessReq {
+  int64 id = 1;
+}
+
+message BussinessResp{
+  HomestayBusinessBoss  boss = 1; 
+}
+
+message  HomestaybussinesslistReq{
+    int64 lastid=1;
+    int64 pagesize=2;
+}
+
+message  HomestaybussinesslistResp{
+  repeated HomestayBusinessBoss bosslist=1;
+}
+
+
+service homestaybussiness {
+    rpc goodboss(GoodbossReq)returns(GoodbossResp);
+    rpc homestaybussinessdetail(BussinessReq)returns(BussinessResp);
+    rpc homestaybussinesslist(HomestaybussinesslistReq)returns(HomestaybussinesslistResp);
+}
+
+
+message  CommentListbyIdReq {
+  int64 id=1;
+  int64 lastid=2;
+  int64 pagesize=3;
+}
+message  CommentListbyIdResp{
+  repeated  HomestayComment commentList=1;
+}
+message CommentListReq{
+  int64 lastid=1;
+  int64 pagesize=2;
+}
+message CommentListResp{
+  repeated  HomestayComment commentList=1;
+}
+service homestaycomment {
+    rpc commentListbyId(CommentListbyIdReq)returns(CommentListbyIdResp);
+    rpc commentList(CommentListReq)returns(CommentListResp);
+}
+
+

@@ -5,7 +5,8 @@ import (
 	"fmt"
 
 	"Book_Homestay/app/travel/cmd/rpc/internal/config"
-	"Book_Homestay/app/travel/cmd/rpc/internal/server"
+	homestayServer "Book_Homestay/app/travel/cmd/rpc/internal/server/homestay"
+	homestaybussinessServer "Book_Homestay/app/travel/cmd/rpc/internal/server/homestaybussiness"
 	"Book_Homestay/app/travel/cmd/rpc/internal/svc"
 	"Book_Homestay/app/travel/cmd/rpc/pb"
 
@@ -26,7 +27,8 @@ func main() {
 	ctx := svc.NewServiceContext(c)
 
 	s := zrpc.MustNewServer(c.RpcServerConf, func(grpcServer *grpc.Server) {
-		pb.RegisterTravelServer(grpcServer, server.NewTravelServer(ctx))
+		pb.RegisterHomestayServer(grpcServer, homestayServer.NewHomestayServer(ctx))
+		pb.RegisterHomestaybussinessServer(grpcServer, homestaybussinessServer.NewHomestaybussinessServer(ctx))
 
 		if c.Mode == service.DevMode || c.Mode == service.TestMode {
 			reflection.Register(grpcServer)

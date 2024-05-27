@@ -5,15 +5,14 @@ import (
 
 	"Book_Homestay/app/travel/cmd/api/internal/svc"
 	"Book_Homestay/app/travel/cmd/api/internal/types"
-	"Book_Homestay/app/travel/model"
-	"Book_Homestay/common/errx"
+	"Book_Homestay/app/travel/cmd/rpc/pb"
+
 
 	"Book_Homestay/common/calculate"
 
-	"github.com/Masterminds/squirrel"
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
-	"github.com/zeromicro/go-zero/core/mr"
+
 )
 
 type HomestayListLogic struct {
@@ -31,44 +30,27 @@ func NewHomestayListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Home
 }
 
 func (l *HomestayListLogic) HomestayList(req *types.HomestayListReq) (resp *types.HomestayListResp, err error) {
-	Builder := l.svcCtx.HomestayActivityModel.SelectBuilder().Where(squirrel.Eq{
-		"row_type":   model.HomestayActivityPreferredType,
-		"row_status": model.HomestayActivityUpStatus,
+
+	homestaylistResp , err := l.svcCtx.Homestay_TravelRpc.HomestayList(l.ctx,&pb.HomestayListReq{
+		Page: req.Page,
+		PageSize: req.PageSize,
 	})
-	homestayActivityList, err := l.svcCtx.HomestayActivityModel.FindPageListByPage(l.ctx, Builder, req.Page, req.PageSize, "data_id desc")
 
 	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, err
 	}
 
-	var resp_list []types.Homestay
-	if len(homestayActivityList) > 0 { // mapreduce example
-		mr.MapReduceVoid(func(source chan<- interface{}) {
-			for _, homestayActivity := range homestayActivityList {
-				source <- homestayActivity.DataId
-			}
-		}, func(item interface{}, writer mr.Writer[*model.Homestay], cancel func(error)) {
-			id := item.(int64)
+	var resp_list [] types.Homestay
 
-			homestay, err := l.svcCtx.HomestayModel.FindOne(l.ctx, id)
-			if err != nil && err != model.ErrNotFound {
-				logx.WithContext(l.ctx).Errorf("ActivityHomestayListLogic ActivityHomestayList 获取活动数据失败 id : %d ,err : %v", id, err)
-				return
-			}
-			writer.Write(homestay)
-		}, func(pipe <-chan *model.Homestay, cancel func(error)) {
+	for _,homestay:= range homestaylistResp.Homestaylist{
+		var Homestay types.Homestay
+		_ = copier.Copy(&Homestay, homestay)
 
-			for homestay := range pipe {
-				var tyHomestay types.Homestay
-				_ = copier.Copy(&tyHomestay, homestay)
+		Homestay.FoodPrice = calculate.Fen2Yuan(homestay.FoodPrice)
+		Homestay.HomestayPrice = calculate.Fen2Yuan(homestay.HomestayPrice)
+		Homestay.MarketHomestayPrice = calculate.Fen2Yuan(homestay.MarketHomestayPrice)
 
-				tyHomestay.FoodPrice = calculate.Fen2Yuan(homestay.FoodPrice)
-				tyHomestay.HomestayPrice = calculate.Fen2Yuan(homestay.HomestayPrice)
-				tyHomestay.MarketHomestayPrice = calculate.Fen2Yuan(homestay.MarketHomestayPrice)
-
-				resp_list = append(resp_list, tyHomestay)
-			}
-		})
+		resp_list = append(resp_list, Homestay)
 	}
 
 	return &types.HomestayListResp{

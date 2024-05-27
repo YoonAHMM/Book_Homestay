@@ -5,9 +5,9 @@ import (
 
 	"Book_Homestay/app/travel/cmd/api/internal/svc"
 	"Book_Homestay/app/travel/cmd/api/internal/types"
-	"Book_Homestay/app/travel/cmd/rpc/travel"
+	"Book_Homestay/app/travel/cmd/rpc/pb"
 	"Book_Homestay/common/calculate"
-	"Book_Homestay/common/errx"
+
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -29,12 +29,12 @@ func NewHomestayDetailLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ho
 
 func (l *HomestayDetailLogic) HomestayDetail(req *types.HomestayDetailReq) (resp *types.HomestayDetailResp, err error) {
 
-	homestay , err := l.svcCtx.TravelRpc.HomestayDetail(l.ctx,&travel.HomestayDetailReq{
+	homestay , err := l.svcCtx.Homestay_TravelRpc.HomestayDetail(l.ctx,&pb.HomestayDetailReq{
 		Id: req.Id,
 	})
-
+	
 	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, err
 	}
 
 	var Homestay types.Homestay

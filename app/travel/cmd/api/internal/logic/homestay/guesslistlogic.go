@@ -5,9 +5,10 @@ import (
 
 	"Book_Homestay/app/travel/cmd/api/internal/svc"
 	"Book_Homestay/app/travel/cmd/api/internal/types"
-	"Book_Homestay/common/Randx"
+	"Book_Homestay/app/travel/cmd/rpc/pb"
+	
 	"Book_Homestay/common/calculate"
-	"Book_Homestay/common/errx"
+	
 
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -29,21 +30,16 @@ func NewGuessListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GuessLi
 
 func (l *GuessListLogic) GuessList(req *types.GuessListReq) (resp *types.GuessListResp, err error) {
 
-	Builder := l.svcCtx.HomestayModel.SelectBuilder()
-	count,err:=l.svcCtx.HomestayModel.FindCount(l.ctx,Builder,"id")
-	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
-	}
-	t,_:=Randx.GenerateRandomFixedRange(count,5)
+	guesslistResp , err := l.svcCtx.Homestay_TravelRpc.GuessList(l.ctx,&pb.GuessListReq{
+	})
 
-	list, err := l.svcCtx.HomestayModel.FindPageListByIdDESC(l.ctx, l.svcCtx.HomestayModel.SelectBuilder(), t, 5)
 	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, err
 	}
-	
-	var resp_list []types.Homestay
-	for _, homestay := range list {
 
+	var resp_list [] types.Homestay
+
+	for _,homestay:= range guesslistResp.Homestaylist{
 		var Homestay types.Homestay
 		_ = copier.Copy(&Homestay, homestay)
 
@@ -53,7 +49,8 @@ func (l *GuessListLogic) GuessList(req *types.GuessListReq) (resp *types.GuessLi
 
 		resp_list = append(resp_list, Homestay)
 	}
-
+	
+	
 	return &types.GuessListResp{
 		List: resp_list,
 	}, nil

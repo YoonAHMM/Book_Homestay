@@ -5,9 +5,9 @@ import (
 
 	"Book_Homestay/app/travel/cmd/api/internal/svc"
 	"Book_Homestay/app/travel/cmd/api/internal/types"
-	"Book_Homestay/common/errx"
+	"Book_Homestay/app/travel/cmd/rpc/pb"
+	"Book_Homestay/common/calculate"
 
-	"github.com/Masterminds/squirrel"
 	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
@@ -27,30 +27,42 @@ func NewCommentListLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Comme
 }
 
 func (l *CommentListLogic) CommentList(req *types.CommentListReq) (resp *types.CommentListResp, err error) {
-	var Builder squirrel.SelectBuilder
-	
+	var Comment_list []*pb.HomestayComment
+
 	if req.ByID{
-		Builder =l.svcCtx.HomestayCommentModel.SelectBuilder().Where(squirrel.Eq{"homestay_id": req.Id})
-	}else{
-		Builder = l.svcCtx.HomestayCommentModel.SelectBuilder()
-	}
-
-	list, err := l.svcCtx.HomestayCommentModel.FindPageListByIdDESC(l.ctx, Builder, req.LastId, req.PageSize)
-	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
-	}
-
-	var resp_list []types.HomestayComment
-
-	if len(list) > 0 {
-		for _, item := range list {
-			var HomestayComment types.HomestayComment
-			_ = copier.Copy(&HomestayComment, item)
-
-			resp_list = append(resp_list, HomestayComment)
+		Comment_resp,err:=l.svcCtx.Comment_TravelRpc.CommentListbyId(l.ctx,&pb.CommentListbyIdReq{
+			Id: req.Id,
+			Lastid: req.LastId,
+			Pagesize: req.PageSize,
+		})
+		if err!=nil{
+			return nil,err
 		}
+		Comment_list=Comment_resp.CommentList
+	}else{
+		Comment_resp,err:=l.svcCtx.Comment_TravelRpc.CommentList(l.ctx,&pb.CommentListReq{
+			Lastid: req.LastId,
+			Pagesize: req.PageSize,
+		})
+		if err!=nil{
+			return nil,err
+		}
+		Comment_list=Comment_resp.CommentList
 	}
+
+	var resq_list []types.HomestayComment
+
+	for _,comment :=range Comment_list{
+		
+		var Comment types.HomestayComment
+		_ = copier.Copy(&Comment, comment)
+
+		Comment.Star=calculate.Ge2Qian(comment.Star)
+
+		resq_list = append(resq_list, Comment)
+	}
+	
 	return &types.CommentListResp{
-		List: resp_list,
+		List: resq_list,
 	},nil
 }

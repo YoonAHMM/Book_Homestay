@@ -10,6 +10,7 @@ type Config struct {
 	rest.RestConf
 
 	UserRpcConf zrpc.RpcClientConf
+	
 	TravelRpcConf  zrpc.RpcClientConf
 
 	DB struct {
