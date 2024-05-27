@@ -5,9 +5,13 @@ go 1.21.4
 require github.com/zeromicro/go-zero v1.6.5
 
 require (
+	github.com/Masterminds/squirrel v1.5.4 // indirect
 	github.com/bradfitz/gomemcache v0.0.0-20220106215444-fb4bf637b56d // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/go-redis/redis/v8 v8.11.5 // indirect
+	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 // indirect
+	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
+	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/sirupsen/logrus v1.9.0 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/tidwall/gjson v1.14.1 // indirect

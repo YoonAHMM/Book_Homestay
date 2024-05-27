@@ -1,3 +1,9 @@
+Name: travel
+Host: 0.0.0.0
+Port: 1002
+
+
+
 Name: user
 Host: 0.0.0.0
 Port: 1001
@@ -23,13 +29,15 @@ Log:
   ServiceName: user-api
   Level: error
 
-#WxMiniConf
-WxMiniConf:
-  AppId: 
-  Secret: 
 
-#rpc service
-UserRpcConf:
+#Travel rpc service
+TravelRpcConf:
   Endpoints: //直连
-    - 127.0.0.1:2001
+    - 127.0.0.1:2002
   NonBlock: true //不会阻塞 rpc 链接
+
+#User Rpc
+UserRpcConf:
+  Endpoints:
+    - 127.0.0.1:2001
+  NonBlock: true

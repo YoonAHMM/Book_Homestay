@@ -1,19 +1,3 @@
-/*
- Navicat MySQL Data Transfer
-
- Source Server         : looklook
- Source Server Type    : MySQL
- Source Server Version : 80028
- Source Host           : 127.0.0.1:33069
- Source Schema         : looklook_usercenter
-
- Target Server Type    : MySQL
- Target Server Version : 80028
- File Encoding         : 65001
-
- Date: 10/03/2022 17:14:49
-*/
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 

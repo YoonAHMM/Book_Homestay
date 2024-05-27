@@ -1,0 +1,25 @@
+syntax = "v1"
+
+
+//民宿评论
+type HomestayComment {
+	Id         int64   `json:"id"`         //评论id
+	HomestayId int64   `json:"homestayId"` //民宿id
+	Content    string  `json:"content"`    //评论
+	Star       float64 `json:"star"`       //评论点赞
+    UserId     int64   `json:"userId"`     //用户id
+	Nickname   string  `json:"nickname"`   //用户名
+	Avatar     string  `json:"avatar"`     //用户头像
+}
+
+type (
+	CommentListReq {
+	   ByID  bool   `json:"By_id"`
+	   Id      int64  `json:"Id"`
+	   LastId  int64 `json:"lastId"`
+       pageSize  int64 `json:"pageSize"`
+	}
+	CommentListResp {
+		List []HomestayComment `json:"list"`
+	}
+)

@@ -1,0 +1,64 @@
+syntax = "v1"
+
+import (
+	"./homestay.api"
+	"./homestayBusiness.api"
+	"./homestayComment.api"
+)
+
+//=====================================> travel-homestay v1 <=================================
+//no need login
+@server (
+	prefix: travel/v1
+	group:  homestay
+)
+service travel {
+	@doc "民宿列表"
+	@handler homestayList
+	post /homestay/homestayList (HomestayListReq) returns (HomestayListResp)
+
+	@doc "房东所有房子"
+	@handler businessList
+	post /homestay/businessList (BusinessListReq) returns (BusinessListResp)
+
+	@doc "猜你喜欢民宿"
+	@handler guessList
+	post /homestay/guessList (GuessListReq) returns (GuessListResp)
+
+	@doc "民宿详情"
+	@handler homestayDetail
+	post /homestay/homestayDetail (HomestayDetailReq) returns (HomestayDetailResp)
+}
+
+//====================================> travel-homestayBusiness v1 <====================================
+//no need login
+@server (
+	prefix: travel/v1
+	group:  homestayBussiness
+)
+service travel {
+	@doc "最佳房东"
+	@handler goodBoss
+	post /homestayBussiness/goodBoss (GoodBossReq) returns (GoodBossResp)
+
+	@doc "店铺列表"
+	@handler homestayBussinessList
+	post /homestayBussiness/homestayBussinessList (HomestayBussinessListReq) returns (HomestayBussinessListResp)
+
+	@doc "房东信息"
+	@handler homestayBussinessDetail
+	post /homestayBussiness/homestayBussinessDetail (HomestayBussinessDetailReq) returns (HomestayBussinessDetailResp)
+}
+
+//========================> homestay-homestayComment v1 <===================================
+//no need login
+@server (
+	prefix: travel/v1
+	group:  homestayComment
+)
+service travel {
+	@doc "民宿评论"
+	@handler commentList
+	post /homestayComment/commentList (CommentListReq) returns (CommentListResp)
+}
+

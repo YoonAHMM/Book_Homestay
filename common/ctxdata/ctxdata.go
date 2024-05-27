@@ -10,7 +10,7 @@ import (
 
 func GetUidFromCtx(ctx context.Context) int64 {
 	var uid int64
-	if jsonUid, ok := ctx.Value("sub").(json.Number); ok {
+	if jsonUid, ok := ctx.Value("aud").(json.Number); ok {
 		if int64Uid, err := jsonUid.Int64(); err == nil {
 			uid = int64Uid
 		} else {

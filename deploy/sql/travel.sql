@@ -1,19 +1,3 @@
-/*
- Navicat MySQL Data Transfer
-
- Source Server         : looklook
- Source Server Type    : MySQL
- Source Server Version : 80028
- Source Host           : 127.0.0.1:33069
- Source Schema         : looklook_travel
-
- Target Server Type    : MySQL
- Target Server Version : 80028
- File Encoding         : 65001
-
- Date: 10/03/2022 17:14:28
-*/
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -98,12 +82,14 @@ CREATE TABLE `homestay_comment` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `delete_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `del_state` tinyint NOT NULL DEFAULT '0',
-  `homestay_id` bigint NOT NULL DEFAULT '0' COMMENT '民宿id',
+  `homestay_id` bigint NOT NULL DEFAULT '0' COMMENT '关联的民宿id',
   `user_id` bigint NOT NULL DEFAULT '0' COMMENT '用户id',
   `content` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '评论内容',
   `star` json NOT NULL COMMENT '星星数,多个维度',
   `version` bigint NOT NULL DEFAULT '0' COMMENT '版本号',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_homestayId` (`homestay_id`)
+  
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='民宿评价';
 
 SET FOREIGN_KEY_CHECKS = 1;
