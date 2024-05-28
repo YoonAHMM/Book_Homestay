@@ -131,7 +131,7 @@ func (l *ThirdPaymentwxPayLogic) createWxPrePayOrder(serviceType, orderSn string
 }
 
 
-//调用orderRPC创建订单
+
 func (l *ThirdPaymentwxPayLogic) getPayHomestayPriceDescription(orderSn string) (int64, string, error) {
 
 	description := "homestay pay"

@@ -16,6 +16,8 @@ const WXMINIPAY_ERROR=100008
 const  WXMINIPAYCLIENT_ERROR=100009
 const  WXMINIPAYCALLBACK_ERROR=100010
 
+const ORDER_ERROR=100011
+
 type CodeError struct {
 	errCode uint32
 	errMsg  string

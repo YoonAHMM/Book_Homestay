@@ -8,7 +8,7 @@ import (
 var ErrNotFound = sqlx.ErrNotFound
 var ErrNoRowsUpdate = errors.New("update db no rows change")
 
-// HomestayOrder 交易状态 :  -1: 已取消 0:待支付 1:未使用 2:已使用  3:已过期
+// HomestayOrder 交易状态 :  -1: 已取消 0:待支付 1:未使用 2:已使用  3:已退款 4:已失效
 
 var HomestayOrderTradeStateCancel int64 = -1
 var HomestayOrderTradeStateWaitPay int64 = 0

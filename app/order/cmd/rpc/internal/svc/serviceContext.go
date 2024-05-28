@@ -15,7 +15,7 @@ type ServiceContext struct {
 
 	AsynqClient *asynq.Client
 
-	homestay_TravelRpc  homestay.HomestayZrpcClient
+	Homestay_TravelRpc  homestay.HomestayZrpcClient
 
 	HomestayOrderModel model.HomestayOrderModel
 }
@@ -26,7 +26,7 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 		AsynqClient:asynq.NewClient(asynq.RedisClientOpt{Addr: c.Redis.Host, Password: c.Redis.Pass}),
 
-		homestay_TravelRpc: homestay.NewHomestayZrpcClient(zrpc.MustNewClient(c.TravelRpcConf)),
+		Homestay_TravelRpc: homestay.NewHomestayZrpcClient(zrpc.MustNewClient(c.TravelRpcConf)),
 
 		HomestayOrderModel: model.NewHomestayOrderModel(sqlx.NewMysql(c.DB.DataSource), c.Cache),
 	}
