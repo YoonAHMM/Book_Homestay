@@ -1,0 +1,54 @@
+Name: payment
+Host: 0.0.0.0
+Port: 1004
+Mode: dev
+
+#jwtAuth
+JwtAuth:
+  AccessSecret:  #生成和验证 JSON Web 令牌 (JWT) 以进行身份验证的秘密密钥
+
+#监控
+Prometheus:
+  Host: 0.0.0.0
+  Port: 4004
+  Path: /metrics
+
+#链路追踪
+Telemetry:
+  Name: payment-api
+  Endpoint: http://jaeger:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger
+
+Log:
+  ServiceName: payment-api
+  Level: error
+
+#小程序配置
+WxMiniConf:
+  AppId: #   微信小程序的唯一标识符         
+  Secret: #  微信小程序关联的密钥
+
+#WxPayConf
+WxPayConf:
+  MchId:    #微信支付提供的商户号
+  SerialNo: #微信支付证书关联的序列号
+  APIv3Key: #微信支付 API v3 进行身份验证的密钥
+  PrivateKey: #微信支付证书的私钥部分
+  NotifyUrl : http://xxx.xxx.com/payment/v1/thirdPayment/thirdPaymentWxPayCallback
+
+#rpc service
+PaymentRpcConf:
+  Endpoints:
+    - 127.0.0.1:2004
+  NonBlock: true
+
+OrderRpcConf:
+  Endpoints:
+    - 127.0.0.1:2003
+  NonBlock: true
+
+UsercenterRpcConf:
+  Endpoints:
+    - 127.0.0.1:2001
+  NonBlock: true

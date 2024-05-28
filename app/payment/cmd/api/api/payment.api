@@ -1,0 +1,47 @@
+syntax = "v1"
+
+type (
+	ThirdPaymentWxPayReq {
+		OrderSn     string `json:"orderSn"`
+		ServiceType string `json:"serviceType"`
+	}
+	ThirdPaymentWxPayResp {
+		Appid     string `json:"appid"`
+		NonceStr  string `json:"nonceStr"`
+		PaySign   string `json:"paySign"`
+		Package   string `json:"package"`
+		Timestamp string `json:"timestamp"`
+		SignType  string `json:"signType"`
+	}
+)
+
+type (
+	ThirdPaymentWxPayCallbackReq  {}
+	ThirdPaymentWxPayCallbackResp {
+		ReturnCode string `json:"return_code"`
+	}
+)
+
+//no need login
+@server (
+	prefix: payment/v1
+	group:  thirdPayment
+)
+service payment {
+	@doc "微信支付平台在支付完成后，向商户服务器发送的通知。该通知包含有关支付的信息，例如支付金额、交易号和支付状态。"
+	@handler thirdPaymentWxPayCallback
+	post /thirdPayment/thirdPaymentWxPayCallback (ThirdPaymentWxPayCallbackReq) returns (ThirdPaymentWxPayCallbackResp)
+}
+
+//need login
+@server (
+	prefix: payment/v1
+	group:  thirdPayment
+	jwt:    JwtAuth
+)
+service payment {
+	@doc "third payment：wechat pay"
+	@handler thirdPaymentwxPay
+	post /thirdPayment/thirdPaymentWxPay (ThirdPaymentWxPayReq) returns (ThirdPaymentWxPayResp)
+}
+
