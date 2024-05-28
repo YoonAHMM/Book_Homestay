@@ -5,7 +5,11 @@ import (
 
 	"Book_Homestay/app/order/cmd/api/internal/svc"
 	"Book_Homestay/app/order/cmd/api/internal/types"
+	"Book_Homestay/app/order/cmd/rpc/order"
+	"Book_Homestay/common/calculate"
+	"Book_Homestay/common/ctxdata"
 
+	"github.com/jinzhu/copier"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -24,7 +28,35 @@ func NewUserHomestayOrderListLogic(ctx context.Context, svcCtx *svc.ServiceConte
 }
 
 func (l *UserHomestayOrderListLogic) UserHomestayOrderList(req *types.UserHomestayOrderListReq) (resp *types.UserHomestayOrderListResp, err error) {
-	// todo: add your logic here and delete this line
+	userId := ctxdata.GetUidFromCtx(l.ctx) //get login user id
 
-	return
+	orderresp, err := l.svcCtx.OrderRpc.UserHomestayOrderList(l.ctx, &order.UserHomestayOrderListReq{
+		UserId:      userId,
+		TraderState: req.TradeState,
+		PageSize:    req.PageSize,
+		LastId:      req.LastId,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	var typesUserHomestayOrderList []types.UserHomestayOrderListView
+
+	if len(orderresp.List) > 0 {
+
+		for _, homestayOrder := range orderresp.List {
+
+			var typeHomestayOrder types.UserHomestayOrderListView
+			_ = copier.Copy(&typeHomestayOrder, homestayOrder)
+
+			typeHomestayOrder.OrderTotalPrice = calculate.Fen2Yuan(homestayOrder.OrderTotalPrice)
+
+			typesUserHomestayOrderList = append(typesUserHomestayOrderList, typeHomestayOrder)
+		}
+	}
+
+	return &types.UserHomestayOrderListResp{
+		List: typesUserHomestayOrderList,
+	}, nil
+
 }

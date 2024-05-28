@@ -14,7 +14,7 @@ type ServiceContext struct {
 
 	OrderRpc   order.Order
 	PaymentRpc payment.Payment
-	homestay_TravelRpc  homestay.HomestayZrpcClient
+	Homestay_TravelRpc  homestay.HomestayZrpcClient
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
@@ -23,6 +23,6 @@ func NewServiceContext(c config.Config) *ServiceContext {
 
 		OrderRpc:   order.NewOrder(zrpc.MustNewClient(c.OrderRpcConf)),
 		PaymentRpc: payment.NewPayment(zrpc.MustNewClient(c.PaymentRpcConf)),
-		homestay_TravelRpc: homestay.NewHomestayZrpcClient(zrpc.MustNewClient(c.TravelRpcConf)),
+		Homestay_TravelRpc: homestay.NewHomestayZrpcClient(zrpc.MustNewClient(c.TravelRpcConf)),
 	}
 }
