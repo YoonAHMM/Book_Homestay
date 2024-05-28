@@ -6,6 +6,7 @@ import (
 	"strings"
 	"time"
 
+	"Book_Homestay/app/mqueue/cmd/job/jobtype"
 	"Book_Homestay/app/order/cmd/rpc/internal/svc"
 	"Book_Homestay/app/order/cmd/rpc/pb"
 	"Book_Homestay/app/order/model"
@@ -95,7 +96,7 @@ func (l *CreateHomestayOrderLogic) CreateHomestayOrder(in *pb.CreateHomestayOrde
 	}
 
 
-	//2、Delayed closing of order tasks.
+
 	payload, err := json.Marshal(jobtype.DeferCloseHomestayOrderPayload{Sn: order.Sn})
 	if err != nil {
 		logx.WithContext(l.ctx).Errorf("create defer close order task json Marshal fail err :%+v , sn : %s",err,order.Sn)

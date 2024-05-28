@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 
+	"Book_Homestay/app/mqueue/cmd/job/jobtype"
 	"Book_Homestay/app/order/cmd/rpc/internal/svc"
 	"Book_Homestay/app/order/cmd/rpc/pb"
 	"Book_Homestay/app/order/model"
