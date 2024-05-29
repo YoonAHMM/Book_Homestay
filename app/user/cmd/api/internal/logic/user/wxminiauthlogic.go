@@ -9,6 +9,7 @@ import (
 	"Book_Homestay/common/errx"
 	"Book_Homestay/common/vars"
 
+	"github.com/pkg/errors"
 	wechat "github.com/silenceper/wechat/v2"
 	"github.com/silenceper/wechat/v2/cache"
 	miniConfig "github.com/silenceper/wechat/v2/miniprogram/config"
@@ -43,12 +44,12 @@ func (l *WxMiniAuthLogic) WxMiniAuth(req *types.WXMiniAuthReq) (resp *types.WXMi
 	seesion,err:=program.GetAuth().Code2Session(req.Code)
 
 	if err != nil || seesion.ErrCode != 0 ||seesion.OpenID == "" {
-		return nil,errx.NewErrCode(errx.WXMINI_ERROR,seesion.ErrMsg)
+		return nil,errors.Wrap(errx.NewErrCode(errx.WXMINI_ERROR),seesion.ErrMsg)
 	}
 
 	Data, err := program.GetEncryptor().Decrypt(seesion.SessionKey, req.EncryptedData, req.IV)
 	if err != nil {
-		return nil, errx.NewErrCode(errx.WXMINI_ERROR,seesion.ErrMsg)
+		return nil,errors.Wrap(errx.NewErrCode(errx.WXMINI_ERROR),seesion.ErrMsg)
 	}
 
 	//未绑定的则绑定，绑定的直接生成token
@@ -83,7 +84,7 @@ func (l *WxMiniAuthLogic) WxMiniAuth(req *types.WXMiniAuthReq) (resp *types.WXMi
 				Nickname: nickName,
 			})
 			if err != nil {
-				return nil, errx.NewErrCode(errx.WXMINI_ERROR,err.Error())
+			   return nil,errors.Wrapf(errx.NewErrCode(errx.WXMINI_ERROR),"err :%v",err)
 			}
 
 			return &types.WXMiniAuthResp{

@@ -10,6 +10,7 @@ import (
 	"Book_Homestay/common/errx"
 
 	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -31,7 +32,7 @@ func (l *GetUserAuthByAuthKeyLogic) GetUserAuthByAuthKey(in *pb.GetUserAuthByAut
 	userAuth, err := l.svcCtx.UserAuthModel.FindOneByAuthTypeAuthKey(l.ctx,in.AuthType, in.AuthKey)
 
 	if err != nil && err != model.ErrNotFound {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCodeMsg(errx.DB_ERROR,"get user auth fail"), "err : %v , in : %+v", err, in)
 	}
 
 	var resp user.UserAuth

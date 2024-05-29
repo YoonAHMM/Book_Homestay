@@ -9,6 +9,7 @@ import (
 	"Book_Homestay/common/errx"
 
 	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -31,7 +32,7 @@ func (l *HomestayOrderDetailLogic) HomestayOrderDetail(in *pb.HomestayOrderDetai
 	homestayOrder, err := l.svcCtx.HomestayOrderModel.FindOneBySn(l.ctx,in.Sn)
 	
 	if err != nil && err != model.ErrNotFound {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCodeMsg(errx.DB_ERROR,"find homestayorder fail"),"err :%v in:%+v",err,in)
 	}
 
 	var resp pb.HomestayOrder

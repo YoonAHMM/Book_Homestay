@@ -13,6 +13,7 @@ import (
 	"Book_Homestay/common/errx"
 	"Book_Homestay/common/vars"
 
+	"github.com/pkg/errors"
 	"github.com/wechatpay-apiv3/wechatpay-go/core"
 	"github.com/wechatpay-apiv3/wechatpay-go/services/payments/jsapi"
 	"github.com/zeromicro/go-zero/core/logx"
@@ -42,13 +43,13 @@ func (l *ThirdPaymentwxPayLogic) ThirdPaymentwxPay(req *types.ThirdPaymentWxPayR
 
 		homestayTotalPrice, homestayDescription, err := l.getPayHomestayPriceDescription(req.OrderSn)
 		if err != nil {
-			return nil, errx.NewErrCode(errx.PAYMENT_ERROR,err.Error())
+			return nil, err
 		}
 		totalPrice = homestayTotalPrice
 		description = homestayDescription
 
 	default:
-		return nil, errx.NewErrCode(errx.PAYMENT_ERROR,"Payment for this business type is not supported")
+		return nil, errors.Wrap(errx.NewErrMsg("Payment for this business type is not supported"),"")
 	}
 
 	
@@ -94,7 +95,7 @@ func (l *ThirdPaymentwxPayLogic) createWxPrePayOrder(serviceType, orderSn string
 	})
 
 	if err != nil || createPaymentResp.Sn == "" {
-		return nil, errx.NewErrCode(errx.WXMINIPAY_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCodeMsg(errx.WXMINIPAY_ERROR,"支付流水无法创建"),"err : %v , ordersn :%v",openId)
 	}
 
 
@@ -123,7 +124,7 @@ func (l *ThirdPaymentwxPayLogic) createWxPrePayOrder(serviceType, orderSn string
 		},
 	)
 	if err != nil {
-		return nil,errx.NewErrCode(errx.WXMINIPAY_ERROR,err.Error())
+		return nil,errors.Wrapf(errx.NewErrCode(errx.WXMINIPAY_ERROR),"支付下单错误，err :%v",err)
 	}
 
 	return resp, nil

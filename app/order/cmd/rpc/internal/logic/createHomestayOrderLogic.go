@@ -17,6 +17,7 @@ import (
 	"Book_Homestay/common/uniqueid"
 
 	"github.com/hibiken/asynq"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -38,7 +39,7 @@ func NewCreateHomestayOrderLogic(ctx context.Context, svcCtx *svc.ServiceContext
 // 民宿下订单
 func (l *CreateHomestayOrderLogic) CreateHomestayOrder(in *pb.CreateHomestayOrderReq) (*pb.CreateHomestayOrderResp, error) {
 	if in.LiveEndTime <= in.LiveStartTime {
-		return nil, errx.NewErrCode(errx.ORDER_ERROR,"Stay at least one night")
+		return nil, errors.Wrapf(errx.NewErrMsg("order illegal"),"in : %+v",in)
 	}
 
 	resp, err := l.svcCtx.Homestay_TravelRpc.HomestayDetail(l.ctx, &homestay.HomestayDetailReq{
@@ -92,7 +93,7 @@ func (l *CreateHomestayOrderLogic) CreateHomestayOrder(in *pb.CreateHomestayOrde
 
 	_, err = l.svcCtx.HomestayOrderModel.Insert(l.ctx,nil, order)
 	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCodeMsg(errx.DB_ERROR,"insert HomestayOrder fail"),"err:%v, in:%+v",err,in)
 	}
 
 

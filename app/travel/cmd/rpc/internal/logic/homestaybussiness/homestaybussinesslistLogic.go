@@ -8,6 +8,7 @@ import (
 	"Book_Homestay/common/errx"
 
 	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -29,7 +30,7 @@ func (l *HomestaybussinesslistLogic) Homestaybussinesslist(in *pb.Homestaybussin
 	Builder := l.svcCtx.HomestayBusinessModel.SelectBuilder()
 	list, err := l.svcCtx.HomestayBusinessModel.FindPageListByIdDESC(l.ctx, Builder, in.Lastid, in.Pagesize)
 	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCode(errx.DB_ERROR), "err : %v , in : %+v", err, in)
 	}
 
 	var resp_list []*pb.HomestayBusinessBoss

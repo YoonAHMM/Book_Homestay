@@ -1,7 +1,6 @@
 package logic
 
 import (
-	"context"
 	"Book_Homestay/app/user/cmd/rpc/internal/svc"
 	"Book_Homestay/app/user/cmd/rpc/pb"
 	"Book_Homestay/app/user/cmd/rpc/user"
@@ -9,7 +8,9 @@ import (
 	"Book_Homestay/common/Randx"
 	"Book_Homestay/common/calculate"
 	"Book_Homestay/common/errx"
+	"context"
 
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/stores/sqlx"
 )
@@ -31,10 +32,10 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Register
 func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 	u, err := l.svcCtx.UserModel.FindOneByMobile(l.ctx,in.Mobile)
 	if err != nil && err != model.ErrNotFound {
-		return nil,errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil,errors.Wrapf(errx.NewErrCode(errx.DB_ERROR), "mobile:%s,err:%v", in.Mobile, err)
 	}
 	if u != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrMsg("user has been registered"), "Register user exists mobile:%s,err:%v", in.Mobile, err)
 	}
 
 	var userId int64
@@ -51,11 +52,11 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 
 		insertResult, err := l.svcCtx.UserModel.Insert(ctx,session, user)
 		if err != nil {
-			return errx.NewErrCode(errx.OK,err.Error())
+			return errors.Wrapf(errx.NewErrCode(errx.DB_ERROR), "Register db user Insert err:%v,user:%+v", err, user)
 		}
 		lastId, err := insertResult.LastInsertId()
 		if err != nil {
-			return errx.NewErrCode(errx.OK,err.Error())
+			return errors.Wrapf(errx.NewErrCode(errx.DB_ERROR), "Register db user insertResult.LastInsertId err:%v,user:%+v", err, user)
 		}
 		userId = lastId
 
@@ -64,7 +65,7 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 		userAuth.AuthKey = in.AuthKey
 		userAuth.AuthType = in.AuthType
 		if _, err := l.svcCtx.UserAuthModel.Insert(ctx,session,userAuth); err != nil {
-			return errx.NewErrCode(errx.OK,err.Error())
+			return  errors.Wrapf(errx.NewErrCode(errx.DB_ERROR), "Register db user_auth Insert err:%v,userAuth:%v", err, userAuth)
 		}
 		return nil
 	}); err != nil {
@@ -77,7 +78,7 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.RegisterResp, error) {
 		UserId: userId,
 	})
 	if err != nil {
-		return nil, errx.NewErrCode(errx.JWT_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCode(errx.TOKEN_GENERATE_ERROR),"GenerateToken userId : %d", userId)
 	}
 
 	return &user.RegisterResp{

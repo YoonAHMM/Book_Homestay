@@ -3,8 +3,10 @@ package logic
 import (
 	"context"
 	"encoding/json"
+
 	"github.com/hibiken/asynq"
-	
+	"github.com/pkg/errors"
+
 	"Book_Homestay/app/mqueue/cmd/job/internal/svc"
 	"Book_Homestay/app/mqueue/cmd/job/jobtype"
 	"Book_Homestay/app/order/cmd/rpc/order"
@@ -13,7 +15,7 @@ import (
 )
 
 
-var ErrCloseOrderFal ="close order fail"
+var ErrCloseOrderFal = errx.NewErrMsg("close order fail")
 
 // CloseHomestayOrderHandler close no pay homestayOrder
 type CloseHomestayOrderHandler struct {
@@ -31,7 +33,7 @@ func (l *CloseHomestayOrderHandler) ProcessTask(ctx context.Context, t *asynq.Ta
 
 	var p jobtype.DeferCloseHomestayOrderPayload
 	if err := json.Unmarshal(t.Payload(), &p); err != nil {
-		return errx.NewErrCode(errx.MQ_ERROR,ErrCloseOrderFal)
+		return errors.Wrapf(ErrCloseOrderFal, "closeHomestayOrderStateMqHandler payload err:%v, payLoad:%+v", err, t.Payload())
 	}
 
 	resp, err := l.svcCtx.OrderRpc.HomestayOrderDetail(ctx, &order.HomestayOrderDetailReq{
@@ -39,7 +41,7 @@ func (l *CloseHomestayOrderHandler) ProcessTask(ctx context.Context, t *asynq.Ta
 	})
 
 	if err != nil || resp.HomestayOrder == nil {
-		return errx.NewErrCode(errx.MQ_ERROR,ErrCloseOrderFal)
+		return errors.Wrapf(ErrCloseOrderFal, "closeHomestayOrderStateMqHandler  get order fail or order no exists err:%v, sn:%s ,HomestayOrder : %+v", err, p.Sn, resp.HomestayOrder)
 	}
 	
 	if resp.HomestayOrder.TradeState == model.HomestayOrderTradeStateWaitPay {
@@ -48,7 +50,7 @@ func (l *CloseHomestayOrderHandler) ProcessTask(ctx context.Context, t *asynq.Ta
 			TradeState: model.HomestayOrderTradeStateCancel,
 		})
 		if err != nil {
-			return errx.NewErrCode(errx.MQ_ERROR,ErrCloseOrderFal)
+			return errors.Wrapf(ErrCloseOrderFal, "CloseHomestayOrderHandler close order fail  err:%v, sn:%s ", err, p.Sn)
 		}
 	}
 

@@ -9,6 +9,7 @@ import (
 	"Book_Homestay/common/errx"
 
 	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -34,7 +35,7 @@ func (l *GetPaymentSuccessRefundByOrderSnLogic) GetPaymentSuccessRefundByOrderSn
 	)
 	thirdPayments, err := l.svcCtx.ThirdPaymentModel.FindAll(l.ctx, Builder, "id desc")
 	if err != nil && err != model.ErrNotFound {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCode(errx.DB_ERROR),"err:%v",err)
 	}
 
 	var resp pb.PaymentDetail

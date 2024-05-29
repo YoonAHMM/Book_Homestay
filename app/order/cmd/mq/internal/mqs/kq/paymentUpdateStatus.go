@@ -1,20 +1,20 @@
 package kq
 
 import (
-	"context"
-	"encoding/json"
 	"Book_Homestay/app/order/cmd/mq/internal/svc"
 	"Book_Homestay/app/order/cmd/rpc/order"
 	"Book_Homestay/app/order/model"
 	paymentModel "Book_Homestay/app/payment/model"
 	"Book_Homestay/common/kqueue"
-	"Book_Homestay/common/errx"
+	"context"
+	"encoding/json"
 
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
 /**
-	Listening to the payment flow status change notification message queue
+Listening to the payment flow status change notification message queue
 */
 type PaymentUpdateStatusMq struct {
 	ctx    context.Context
@@ -56,7 +56,7 @@ func (l *PaymentUpdateStatusMq) execService(message kqueue.ThirdPaymentUpdatePay
 			TradeState: orderTradeState,
 		})
 		if err != nil {
-			return errx.NewErrCode(errx.MQ_ERROR,err.Error())
+			return errors.Wrap(err,"UpdataHomestay err")
 		}
 	}
 

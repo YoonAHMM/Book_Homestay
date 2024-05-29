@@ -10,6 +10,7 @@ import (
 	"Book_Homestay/common/errx"
 
 	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -30,7 +31,7 @@ func NewHomestaybussinessdetailLogic(ctx context.Context, svcCtx *svc.ServiceCon
 func (l *HomestaybussinessdetailLogic) Homestaybussinessdetail(in *pb.BussinessReq) (*pb.BussinessResp, error) {
 	homestayBusiness, err := l.svcCtx.HomestayBusinessModel.FindOne(l.ctx,in.Id)
 	if err != nil && err != model.ErrNotFound {
-		return nil,errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil,errors.Wrapf(errx.NewErrCode(errx.DB_ERROR), "err : %v , in : %+v", err, in)
 	}
 
 	var HomestayBusinessBoss pb.HomestayBusinessBoss
@@ -40,7 +41,7 @@ func (l *HomestaybussinessdetailLogic) Homestaybussinessdetail(in *pb.BussinessR
 			Id: homestayBusiness.UserId,
 		})
 		if err != nil {
-			return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+			return nil, err
 		}
 		if userResp.User != nil && userResp.User.Id > 0 {
 			_ = copier.Copy(&HomestayBusinessBoss, userResp.User)

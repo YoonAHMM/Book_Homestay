@@ -11,6 +11,7 @@ import (
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/mr"
 )
@@ -37,7 +38,7 @@ func (l *GoodbossLogic) Goodboss(in *pb.GoodbossReq) (*pb.GoodbossResp, error) {
 
 	homestayActivityList, err := l.svcCtx.HomestayActivityModel.FindPageListByPage(l.ctx, Builder, 0, 10, "data_id desc")
 	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCode(errx.DB_ERROR), "err : %v , in : %+v", err, in)
 	}
 
 	var resp_list []*pb.HomestayBusinessBoss

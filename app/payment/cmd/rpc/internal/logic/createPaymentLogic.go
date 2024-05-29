@@ -9,6 +9,7 @@ import (
 	"Book_Homestay/common/errx"
 	"Book_Homestay/common/uniqueid"
 
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -39,7 +40,7 @@ func (l *CreatePaymentLogic) CreatePayment(in *pb.CreatePaymentReq) (*pb.CreateP
 
 	_, err := l.svcCtx.ThirdPaymentModel.Insert(l.ctx,nil, data)
 	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCode(errx.DB_ERROR),"err:%v",err)
 	}
 
 	return &pb.CreatePaymentResp{

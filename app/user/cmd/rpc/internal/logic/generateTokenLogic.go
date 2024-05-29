@@ -2,6 +2,7 @@ package logic
 
 import (
 	"context"
+	"github.com/pkg/errors"
 	"time"
 
 	"Book_Homestay/app/user/cmd/rpc/internal/svc"
@@ -18,6 +19,8 @@ type GenerateTokenLogic struct {
 	logx.Logger
 }
 
+var ErrUsernamePwdError = errx.NewErrMsg("账号或密码不正确")
+
 func NewGenerateTokenLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GenerateTokenLogic {
 	return &GenerateTokenLogic{
 		ctx:    ctx,
@@ -33,7 +36,7 @@ func (l *GenerateTokenLogic) GenerateToken(in *pb.GenerateTokenReq) (*pb.Generat
 	accessToken,err:=l.makeJwtToken(l.svcCtx.Config.JwtAuth.AccessSecret,now,accessExpire,in.UserId)
 
 	if err!=nil {
-		return nil,errx.NewErrCode(errx.JWT_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCode(errx.TOKEN_EXPIRE_ERROR), "getJwtToken err userId:%d , err:%v", in.UserId, err)
 	}
 
 	return &pb.GenerateTokenResp{

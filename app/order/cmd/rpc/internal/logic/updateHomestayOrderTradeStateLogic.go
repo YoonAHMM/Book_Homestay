@@ -53,7 +53,7 @@ func (l *UpdateHomestayOrderTradeStateLogic) UpdateHomestayOrderTradeState(in *p
 	
 	homestayOrder.TradeState = in.TradeState
 	if err := l.svcCtx.HomestayOrderModel.UpdateWithVersion(l.ctx,nil, homestayOrder); err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCodeMsg(errx.DB_ERROR,"updata homestayorder fail"),"err :%v in:%+v",err,in)
 	}
 
 	if in.TradeState == model.HomestayOrderTradeStateWaitUse {
@@ -85,33 +85,33 @@ func (l *UpdateHomestayOrderTradeStateLogic) UpdateHomestayOrderTradeState(in *p
 // Update homestay order status
 func (l *UpdateHomestayOrderTradeStateLogic) verifyOrderTradeState(newTradeState, oldTradeState int64) error {
 	if newTradeState == model.HomestayOrderTradeStateWaitPay {
-		return errx.NewErrCode(errx.ORDER_ERROR,"Changing this status is not supported")
+		return errors.Wrap(errx.NewErrMsg("Changing this status is not supported"),"")
 	}
 
 	if newTradeState == model.HomestayOrderTradeStateCancel {
 
 		if oldTradeState != model.HomestayOrderTradeStateWaitPay {
-			return  errx.NewErrCode(errx.ORDER_ERROR,"只有待支付的订单才能被取消")
+			return  errors.Wrap(errx.NewErrMsg("只有待支付的订单才能被取消"),"")
 		}
 
 	} else if newTradeState == model.HomestayOrderTradeStateWaitUse {
 		if oldTradeState != model.HomestayOrderTradeStateWaitPay {
-			return errx.NewErrCode(errx.ORDER_ERROR,"Only orders pending payment can change this status")
+			return errors.Wrap(errx.NewErrMsg("Only orders pending payment can change this status"),"")
 		}
 
 	} else if newTradeState == model.HomestayOrderTradeStateUsed {
 		if oldTradeState != model.HomestayOrderTradeStateWaitUse {
-			return errx.NewErrCode(errx.ORDER_ERROR,"Only unused orders can be changed to this status")
+			return errors.Wrap(errx.NewErrMsg("Only unused orders can be changed to this status"),"")
 			
 		}
 	} else if newTradeState == model.HomestayOrderTradeStateRefund {
 		if oldTradeState != model.HomestayOrderTradeStateWaitUse {
-			return errx.NewErrCode(errx.ORDER_ERROR,"Only unused orders can be changed to this status")
+			return errors.Wrap(errx.NewErrMsg("Only orders pending payment can change this status"),"")
 
 		}
 	} else if newTradeState == model.HomestayOrderTradeStateExpire {
 		if oldTradeState != model.HomestayOrderTradeStateWaitUse {
-			return errx.NewErrCode(errx.ORDER_ERROR,"Only unused orders can be changed to this status")
+			return errors.Wrap(errx.NewErrMsg("Only unused orders can be changed to this status"),"")
 		}
 	}
 

@@ -5,11 +5,12 @@ import (
 
 	"Book_Homestay/app/travel/cmd/rpc/internal/svc"
 	"Book_Homestay/app/travel/cmd/rpc/pb"
-	
+
 	"Book_Homestay/common/errx"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -32,7 +33,7 @@ func (l *BusinessListLogic) BusinessList(in *pb.BusinessListReq) (*pb.BusinessLi
 	Builder := l.svcCtx.HomestayModel.SelectBuilder().Where(squirrel.Eq{"homestay_business_id": in.Homestay_Business_Id})
 	list, err := l.svcCtx.HomestayModel.FindPageListByIdDESC(l.ctx, Builder, in.LastId, in.PageSize)
 	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCode(errx.DB_ERROR), "err : %v , in : %+v", err, in)
 	}
 
 	var resp_list [] *pb.Homestay

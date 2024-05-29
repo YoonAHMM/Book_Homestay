@@ -11,6 +11,7 @@ import (
 	"Book_Homestay/common/errx"
 	"Book_Homestay/common/uniqueid"
 
+	"github.com/pkg/errors"
 	"github.com/wechatpay-apiv3/wechatpay-go/core/auth/verifiers"
 	"github.com/wechatpay-apiv3/wechatpay-go/core/downloader"
 	"github.com/wechatpay-apiv3/wechatpay-go/core/notify"
@@ -51,7 +52,7 @@ func (l *ThirdPaymentWxPayCallbackLogic) ThirdPaymentWxPayCallback(rw http.Respo
 	//解析通知
 	_, err = handler.ParseNotifyRequest(context.Background(), req, transaction)
 	if err != nil {
-		return nil, errx.NewErrCode(errx.WXMINIPAYCALLBACK_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCode(errx.WXMINIPAYCALLBACK_ERROR),"wx 发送通知解析错误")
 	}
 
 	returnCode := "SUCCESS"
@@ -79,7 +80,7 @@ func (l *ThirdPaymentWxPayCallbackLogic) verifyAndUpdateState(notifyTrasaction *
 	//比对金额
 	notifyPayTotal := *notifyTrasaction.Amount.PayerTotal
 	if paymentResp.PaymentDetail.PayTotal != notifyPayTotal {
-		return errx.NewErrCode(errx.WXMINIPAYCALLBACK_ERROR,"Order amount exception ")
+		return errors.Wrapf(errx.NewErrCode(errx.WXMINIPAYCALLBACK_ERROR),"支付金额与订单金额不匹配")
 	}
 
 

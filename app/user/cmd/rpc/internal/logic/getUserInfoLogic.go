@@ -10,6 +10,7 @@ import (
 	"Book_Homestay/common/errx"
 
 	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -31,7 +32,7 @@ func (l *GetUserInfoLogic) GetUserInfo(in *pb.GetUserInfoReq) (*pb.GetUserInfoRe
 	
 	u, err := l.svcCtx.UserModel.FindOne(l.ctx,in.Id)
 	if err != nil && err != model.ErrNotFound {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCodeMsg(errx.DB_ERROR,"get userinfo fail"),"err : %v , in : %+v", err, in)
 	}
 	if u == nil {
 		return nil, model.ErrNotFound

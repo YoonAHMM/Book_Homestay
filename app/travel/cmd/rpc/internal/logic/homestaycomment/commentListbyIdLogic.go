@@ -9,6 +9,7 @@ import (
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -34,7 +35,7 @@ func (l *CommentListbyIdLogic) CommentListbyId(in *pb.CommentListbyIdReq) (*pb.C
 
 	list, err := l.svcCtx.HomestayCommentModel.FindPageListByIdDESC(l.ctx, Builder, in.Lastid, in.Pagesize)
 	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCode(errx.DB_ERROR), "err : %v , in : %+v", err, in)
 	}
 
 	var resp_list []*pb.HomestayComment

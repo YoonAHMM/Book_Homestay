@@ -11,6 +11,7 @@ import (
 
 	"github.com/golang-module/carbon/v2"
 	"github.com/hibiken/asynq"
+	"github.com/pkg/errors"
 	"github.com/silenceper/wechat/v2/miniprogram/subscribe"
 	"github.com/zeromicro/go-zero/core/logx"
 	"github.com/zeromicro/go-zero/core/service"
@@ -23,7 +24,7 @@ import (
 	"time"
 )
 
-var ErrPaySuccessNotifyFail = "pay success notify user fail"
+var ErrPaySuccessNotifyFail = errx.NewErrMsg("pay success notify user fail")
 
 
 // PaySuccessNotifyUserHandler pay success notify user
@@ -41,7 +42,7 @@ func (l *PaySuccessNotifyUserHandler) ProcessTask(ctx context.Context, t *asynq.
 
 	var p jobtype.PaySuccessNotifyUserPayload
 	if err := json.Unmarshal(t.Payload(), &p); err != nil {
-		return errx.NewErrCode(errx.MQ_ERROR,ErrCloseOrderFal)
+		return errors.Wrapf(ErrPaySuccessNotifyFail, "PaySuccessNotifyUserHandler payload err:%v, payLoad:%+v", err, t.Payload())
 	}
 
 	// 1、get user openid
@@ -50,10 +51,10 @@ func (l *PaySuccessNotifyUserHandler) ProcessTask(ctx context.Context, t *asynq.
 		AuthType: vars.UserAuthTypeSmallWX,
 	})
 	if err != nil {
-		return errx.NewErrCode(errx.MQ_ERROR,ErrCloseOrderFal)
+		return  errors.Wrapf(ErrPaySuccessNotifyFail,"pay success notify user fail, rpc get user err:%v , orderSn:%s , userId:%d",err,p.Order.Sn,p.Order.UserId)
 	}
 	if usercenterResp.UserAuth == nil || len(usercenterResp.UserAuth.AuthKey) == 0 {
-		return errx.NewErrCode(errx.MQ_ERROR,ErrCloseOrderFal)
+		return errors.Wrapf(ErrPaySuccessNotifyFail,"pay success notify user , user no exists err:%v , orderSn:%s , userId:%d",err,p.Order.Sn,p.Order.UserId)
 	}
 	openId := usercenterResp.UserAuth.AuthKey
 

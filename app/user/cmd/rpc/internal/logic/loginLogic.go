@@ -11,6 +11,7 @@ import (
 	"Book_Homestay/common/errx"
 	"Book_Homestay/common/vars"
 
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -30,7 +31,7 @@ func NewLoginLogic(ctx context.Context, svcCtx *svc.ServiceContext) *LoginLogic 
 
 func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
 	if in.AuthType != vars.UserAuthTypeSystem{
-		return nil,errx.NewErrCode(errx.LOGIN_ERROR,"UserAuthTypeSystem wrong")
+		return nil,errors.Wrapf(errx.NewErrMsg("authtype illegal")," in : %+v", in)
 	}
 
 	mobile:=in.AuthKey
@@ -44,7 +45,7 @@ func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginResp, error) {
 	}
 
 	if calculate.Md5ByString(in.Password) != u.Password {
-		return nil, errx.NewErrCode(errx.LOGIN_ERROR,"Password wrong")
+		return nil, errors.Wrapf(errx.NewErrMsg("账号或密码错误"),"账号或密码错误")
 	}
 	
 	g:=NewGenerateTokenLogic(l.ctx,l.svcCtx)

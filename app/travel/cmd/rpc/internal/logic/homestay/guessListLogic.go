@@ -9,6 +9,7 @@ import (
 	"Book_Homestay/common/errx"
 
 	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -30,13 +31,13 @@ func (l *GuessListLogic) GuessList(in *pb.GuessListReq) (*pb.GuessListResp, erro
 	Builder := l.svcCtx.HomestayModel.SelectBuilder()
 	count,err:=l.svcCtx.HomestayModel.FindCount(l.ctx,Builder,"id")
 	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCode(errx.DB_ERROR), "err : %v , in : %+v", err, in)
 	}
 	t,_:=Randx.GenerateRandomFixedRange(count,5)
 
 	list, err := l.svcCtx.HomestayModel.FindPageListByIdDESC(l.ctx, l.svcCtx.HomestayModel.SelectBuilder(), t, 5)
 	if err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCode(errx.DB_ERROR), "err : %v , in : %+v", err, in)
 	}
 	
 	var resp_list []*pb.Homestay

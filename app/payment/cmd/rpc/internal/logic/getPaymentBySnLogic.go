@@ -9,6 +9,7 @@ import (
 	"Book_Homestay/common/errx"
 
 	"github.com/jinzhu/copier"
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -30,7 +31,7 @@ func NewGetPaymentBySnLogic(ctx context.Context, svcCtx *svc.ServiceContext) *Ge
 func (l *GetPaymentBySnLogic) GetPaymentBySn(in *pb.GetPaymentBySnReq) (*pb.GetPaymentBySnResp, error) {
 	thirdPayment, err := l.svcCtx.ThirdPaymentModel.FindOneBySn(l.ctx,in.Sn)
 	if err != nil && err != model.ErrNotFound {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCode(errx.DB_ERROR),"err:%v",err)
 	}
 
 	var resp pb.PaymentDetail

@@ -11,6 +11,7 @@ import (
 	"Book_Homestay/common/errx"
 	"Book_Homestay/common/kqueue"
 
+	"github.com/pkg/errors"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
@@ -32,7 +33,7 @@ func NewUpdateTradeStateLogic(ctx context.Context, svcCtx *svc.ServiceContext) *
 func (l *UpdateTradeStateLogic) UpdateTradeState(in *pb.UpdateTradeStateReq) (*pb.UpdateTradeStateResp, error) {
 	payment,err:=l.svcCtx.ThirdPaymentModel.FindOneBySn(l.ctx,in.Sn)
 	if err!=nil{
-		return nil,errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil,errors.Wrapf(errx.NewErrCode(errx.DB_ERROR),"err:%v",err)
 	}
 
 	if payment==nil{
@@ -46,10 +47,10 @@ func (l *UpdateTradeStateLogic) UpdateTradeState(in *pb.UpdateTradeStateReq) (*p
 		}
 	}else if in.PayStatus == model.ThirdPaymentPayTradeStateRefund {
 		if payment.PayStatus != model.ThirdPaymentPayTradeStateSuccess {
-			return nil,errx.NewErrCode(errx.PAYMENT_ERROR,"Only orders with successful payment can be refunded")
+			return nil,errors.Wrapf(errx.NewErrMsg("Only orders with successful payment can be refunded"),"in :%+v",in)
 		}
 	} else {
-		return nil, errx.NewErrCode(errx.PAYMENT_ERROR,"This status is not currently supported")
+		return nil,errors.Wrapf(errx.NewErrMsg("This status is not currently supported"),"in :%+v",in)
 	}
 
 
@@ -60,7 +61,7 @@ func (l *UpdateTradeStateLogic) UpdateTradeState(in *pb.UpdateTradeStateReq) (*p
 	payment.PayStatus = in.PayStatus
 	payment.PayTime = time.Unix(in.PayTime, 0)
 	if err := l.svcCtx.ThirdPaymentModel.UpdateWithVersion(l.ctx,nil, payment); err != nil {
-		return nil, errx.NewErrCode(errx.DB_ERROR,err.Error())
+		return nil, errors.Wrapf(errx.NewErrCode(errx.DB_ERROR),"err:%v",err)
 	}
 
 	if err:=l.pubKqPaySuccess(in.Sn,in.PayStatus);err != nil{
