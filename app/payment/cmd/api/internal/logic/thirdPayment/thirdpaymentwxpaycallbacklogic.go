@@ -103,8 +103,7 @@ func (l *ThirdPaymentWxPayCallbackLogic) verifyAndUpdateState(notifyTrasaction *
 			return err
 		}
 
-	} else if payStatus == model.ThirdPaymentPayTradeStateWait {
-	}
+	} 
 
 	return nil
 }

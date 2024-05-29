@@ -95,7 +95,7 @@ func (l *ThirdPaymentwxPayLogic) createWxPrePayOrder(serviceType, orderSn string
 	})
 
 	if err != nil || createPaymentResp.Sn == "" {
-		return nil, errors.Wrapf(errx.NewErrCodeMsg(errx.WXMINIPAY_ERROR,"支付流水无法创建"),"err : %v , ordersn :%v",openId)
+		return nil, errors.Wrapf(errx.NewErrCodeMsg(errx.WXMINIPAY_ERROR,"支付流水无法创建"),"err : %v , ordersn :%d",err,openId)
 	}
 
 
