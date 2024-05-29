@@ -8,6 +8,7 @@ import (
 	"Book_Homestay/app/payment/cmd/rpc/internal/server"
 	"Book_Homestay/app/payment/cmd/rpc/internal/svc"
 	"Book_Homestay/app/payment/cmd/rpc/pb"
+	"Book_Homestay/common/rpcserver"
 
 	"github.com/zeromicro/go-zero/core/conf"
 	"github.com/zeromicro/go-zero/core/service"
@@ -32,6 +33,7 @@ func main() {
 			reflection.Register(grpcServer)
 		}
 	})
+	s.AddUnaryInterceptors(rpcserver.LoggerInterceptor)
 	defer s.Stop()
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
