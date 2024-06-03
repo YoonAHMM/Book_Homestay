@@ -7,7 +7,7 @@ import (
 	"Book_Homestay/app/mqueue/cmd/job/jobtype"
 )
 
-// scheduler job ------> go-zero-looklook/app/mqueue/cmd/job/internal/logic/settleRecord.go.
+
 func (l *MqueueScheduler) settleRecordScheduler()  {
 
 	task := asynq.NewTask(jobtype.ScheduleSettleRecord, nil)
